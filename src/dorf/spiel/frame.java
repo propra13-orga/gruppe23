@@ -3,6 +3,10 @@ package dorf.spiel;
 import java.awt.Frame;
 
 import javax.swing.*;
+
+import main_package.Gameframe;
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +14,6 @@ import java.awt.event.ActionListener;
 public class frame extends JFrame implements ActionListener{
 	
 	private JButton schliessen;
-	private JButton einstellungen;
-	private JButton info;
 	private JButton beenden;
 	
 	public static void main(String[] args) {
@@ -40,29 +42,7 @@ public class frame extends JFrame implements ActionListener{
 		
 		
 	}
-/*	public void ActionPerformed(ActionEvent e){
-		
-		if(e.getSource()==schliessen){
-			fenster();
-		}
-		
-		if(e.getSource()== info){
-			Object[] options = {"OK"};
-		
-			JOptionPane.showOptionDialog(null, "Programmiert von Martha","Information",JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-		
-	}
 
-	if(e.getSource()==einstellungen){
-	//	auswahl();
-		
-	}
-	
-	if(e.getSource()==ende){
-		System.exit(0);
-		
-	}
-}*/
 
 public static void fenster(){
 	JFrame fenster = new JFrame();
@@ -70,12 +50,13 @@ public static void fenster(){
 	fenster.setSize(650,350);
 	fenster.setVisible(true);
 	fenster.add(new gui());
+	
 		
 }
 
 public void actionPerformed(ActionEvent e){
 	if(e.getSource()==schliessen){
-		fenster();
+		Gameframe gframe = new Gameframe();
 	}
 
 if(e.getSource()==beenden){
