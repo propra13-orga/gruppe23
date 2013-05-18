@@ -17,8 +17,12 @@ public class frame extends JFrame implements ActionListener{
 	
 	public static JButton schliessen;
 	public static JButton beenden;
+	/*public static Spielfeld feld;
+	public static Graphics g; */
 	
 	public static int lvl = 0;
+	
+	//Menüfenster öffnen
 	
 	public static void main(String[] args) {
 		
@@ -29,6 +33,8 @@ public class frame extends JFrame implements ActionListener{
 		mframe.setVisible(true);
 		
 	}
+	
+	//Buttons aktivieren
 	
 	public frame(String title){
 		
@@ -45,23 +51,26 @@ public class frame extends JFrame implements ActionListener{
 		add(beenden);
 		
 	}
+	
+	//Spielfenster öffnen
 
 
 public static void fenster(){
 	
-	Gameframe gframe = new Gameframe ();
+	Gameframe gframe = new Gameframe();
 	gframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	gframe.setSize(800, 600);		
+	gframe.setSize(800, 800);		
 	gframe.setLayout(null);		
 	gframe.setLocationRelativeTo(null);
 	gframe.setUndecorated(true);
 	gframe.setVisible(true);
 	gframe.makestrat();
+	//gframe.Spielfeld(10, 10, 9, 9, 2, 2, 3, 3);
 	gframe.loop(gframe);
 	
 }	
 		
-
+//Funktionen der Buttons
 
 public void actionPerformed(ActionEvent e){
 	
