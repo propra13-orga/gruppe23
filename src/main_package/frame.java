@@ -1,15 +1,10 @@
 package main_package;
 
 import javax.swing.*;
-
-
-
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Main Methode
 public class frame extends JFrame{
 	
 	/**
@@ -21,7 +16,7 @@ public class frame extends JFrame{
 	
 	public static int lvl = 0;
 	
-	//Menüfenster erstellen
+	//Menï¿½fenster erstellen
 	
 	public static void main(String[] args) {
 		
