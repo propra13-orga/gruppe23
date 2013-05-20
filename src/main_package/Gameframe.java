@@ -1,39 +1,42 @@
 package main_package;
 
+
 import java.awt.Color;
 
-import main_package.Spielfeld;
-import java.awt.Frame;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.util.prefs.BackingStoreException;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 
 public class Gameframe extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferStrategy strat;
-	/*Spielfeld feld;
-    int level_Zahl = 1;
-    int [][]Level;*/
+	public Spielfeld feld;
+	public Spielfeld feld2;
+	public Spielfeld feld3;
+	public Player player;
+	public Menue menue;
+	public int over;
+	public int fin;
 	
 	public Gameframe(){
 		
 		super("Dungeon Crawler");
-		//this.feld = feld;
-	
+		feld = new Spielfeld(8,8,3,4,2,1,5,6);
+		feld2 = new Spielfeld(8,8,6,1,3,5,5,2);
+		feld3 = new Spielfeld(8,8,2,6,1,1,3,5);
+		addKeyListener(new Keyboard());
+		addMouseListener(new Mouse());
+		player = new Player(250-25,150-25);
+		menue = new Menue();
+		over = 0;
+		fin = 0;
 	}
-	
-	/*int xpos;
-	int ypos;
-	int xpos2;
-	int ypos2;*/
 	
 	//Buffer zum Laden der Zeichnungen im Voraus
 	
@@ -41,93 +44,79 @@ public class Gameframe extends JFrame {
 		
 		createBufferStrategy(2);
 		strat = getBufferStrategy();
-	
+		
 	}
 	
 	public void repaint(){
-		
 		Graphics g = strat.getDrawGraphics();
+		draw(g);
 		g.dispose();
 		strat.show();
 	}
 	
-	
-	/*public void update(){
-		
-		xpos += 5;
-		ypos2 += 5;
-
-	}
-	
-	public void update2(){
-
-		ypos += 5;
-		xpos2 +=5;
-	
-	}
-	
-	public void update3(){
-	
-		ypos -= 5;
-		xpos2 -=5;
-		
-		if(ypos==30){
-			xpos -= 5;
-			ypos2 -= 5;
+	public void draw(Graphics g){
+		if(frame.lvl == 1)
+		{
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, 800, 800);
+		feld.paint(g);
+		player.draw(g);	
 		}
 		
-	}*/
-	
-	//Hauptschleife
-	
-	public void loop(Gameframe gframe){
-	
-		while(frame.lvl == 1){
-		
-			/*gframe.update();
-			gframe.repaint();
-		
-				if(xpos == 540) frame.lvl += 1;*/
-					try {
-						Thread.sleep(10);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-			}
-	
-		while(frame.lvl == 2){
-			
-			/*gframe.update2();
-			gframe.repaint();
-			
-			if(ypos == 540) frame.lvl += 1;*/
-				try {
-					Thread.sleep(10);
-				}
-				catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		
-		while(frame.lvl == 3){
-			
-			/*gframe.update3();
-			gframe.repaint();
-			
-			if(ypos == 30){ frame.lvl = 0;
-			gframe.setVisible(false);
-			}*/
-			try {
-				Thread.sleep(10);
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}	
+		else if (frame.lvl == 2){
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, 800, 800);
+		feld2.paint(g);
+		player.draw(g);	
 		}
 		
-		System.exit(0);
+		else if (frame.lvl == 3){
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, 800, 800);
+		feld3.paint(g);
+		player.draw(g);	
+		}
+		
+		else if (frame.lvl == 4){
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 800, 800);
+		g.setColor(Color.white);
+		Font schrift = new Font ("Arial", Font.BOLD, 40);
+		g.setFont(schrift);
+		g.drawString("GAME OVER!", 300, 350);
+		over +=1;		
+		if (over == 100) frame.lvl = 0;
+		}
+		
+		else if (frame.lvl == 5){
+			g.setColor(Color.black);
+			g.fillRect(0,0,800,800);
+			feld.paintFinish(g);
+			fin += 1;
+			if (fin== 100) frame.lvl = 0;
+		}
 	}
+	
+	public void update(){
+		
+		player.update();
+	}
+	
+	//Menü erstellen
+	
+	public void menuepaint(){
+		Graphics g = strat.getDrawGraphics();
+		menue(g);
+		g.dispose();
+		strat.show();
+	}
+	
+	public void menue(Graphics g){
+		
+		menue.draw(g);
+		
+	}
+	
 }
 
 
