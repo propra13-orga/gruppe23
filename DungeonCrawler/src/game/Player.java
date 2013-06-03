@@ -26,7 +26,6 @@ public class Player {
 		r.setBounds(p_X, p_Y, 32, 32);
 		p_X += p_SpeedX;
 		p_Y += p_SpeedY;
-		life -= damage;
 
 	}
 

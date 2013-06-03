@@ -13,15 +13,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 public class Main extends Applet implements Runnable, KeyListener{
 	
 	public static Player player;
-	private Image image, character, health_empty, health_full, mana_full, mana_empty;
+	public static Enemy enemy;
+	private Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost;
 	public static Image tilefloor, tilewall, tiletrap, tileexit, tileentry;
 	private ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
 	private URL base;
 	private Graphics second;
-	public static double frame = 0, frameAdd = .3;
+	public static double frame = 0, frameAdd = .1;
 	public static int direction;
 	public static boolean animating = false;
 
@@ -50,6 +53,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 
   		// Image Setups
   		character = getImage(base, "gfx/MainChar.png");
+  		enemy_ghost = getImage(base,"gfx/Geist.png");
   		tilefloor = getImage(base, "gfx/Tile_Floor.png");
   		tilewall = getImage(base, "gfx/Tile_Wall.png");
   		health_empty = getImage(base,"gfx/LifeOrbEmpty.png");
@@ -66,6 +70,7 @@ public class Main extends Applet implements Runnable, KeyListener{
    public void start() 
    {
 	   frame = 0 ;
+	   enemy = new Enemy((40+(int)(Math.random()*729)), (40+(int)(Math.random()*601)),25,100);
 	   player = new Player(400,400);
 	   Thread thread = new Thread(this);
 	   thread.start();
@@ -165,6 +170,7 @@ public class Main extends Applet implements Runnable, KeyListener{
     		   frame += frameAdd;  
     	  }
     	  player.update();
+    	  enemy.update();
     	  
     	  repaint();
     	  	try 
@@ -182,7 +188,8 @@ public class Main extends Applet implements Runnable, KeyListener{
    public void paint(Graphics g) 
    {
 	   paintTiles(g);
-	   g.drawImage(character, player.getP_X(), player.getP_Y(), player.getP_X()+32, player.getP_Y()+32, 32*(int)frame, 0+direction, 32*(int)frame + 32, 32+direction, this);
+	   g.drawImage(character, player.getP_X(), player.getP_Y(), player.getP_X()+32, player.getP_Y()+32, 32*(int)frame, direction, 32*(int)frame + 32, 32+direction, this);
+	   g.drawImage(enemy_ghost, enemy.getX(), enemy.getY(), enemy.getX()+32, enemy.getY()+32, 32*(int)frame, enemy.getDirection(), 32*(int)frame + 32, 32+enemy.getDirection(), this);
 	   g.drawRect((int)player.r.getX(), (int)player.r.getY(), (int)player.r.getWidth(), (int)player.r.getHeight());
 	   g.setColor(Color.white);
 	   g.drawRect((int)Tiles.r.getX(), (int)Tiles.r.getY(), (int)Tiles.r.getWidth(), (int)Tiles.r.getHeight());
@@ -192,12 +199,6 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   g.drawImage(mana_full, 628, 700 + (67 -  67*player.getMana()/100), 700, 767, 0, 67 -  67*player.getMana()/100, 72, 67, this);
    }
    
-   public void anim()
-   {
-	   if (frame < 0.5) frameAdd =  .3;
-	   if (frame > 2.5) frameAdd = -.3;
-	   frame += frameAdd;   
-   }
    
    private void updateTiles()
    {
