@@ -9,6 +9,10 @@ public class Player {
     private boolean movingRight = false;
     private boolean movingUp = false;
     private boolean movingDown = false;
+    public static Rectangle up = new Rectangle (0,0,0,0);
+    public static Rectangle right = new Rectangle (0,0,0,0);
+    public static Rectangle down = new Rectangle (0,0,0,0);
+    public static Rectangle left = new Rectangle (0,0,0,0);
     public static Rectangle r = new Rectangle (0,0,0,0);
 	
 	public Player (int x, int y){
@@ -23,6 +27,10 @@ public class Player {
 	
 	public void update() {
 		
+		up.setBounds(p_X+16, p_Y, 1, 1);
+		right.setBounds(p_X + 31, p_Y + 16, 1, 1);
+		down.setBounds(p_X + 16, p_Y + 31, 1, 1);
+		left.setBounds(p_X, p_Y + 16, 1, 1);
 		r.setBounds(p_X, p_Y, 32, 32);
 		p_X += p_SpeedX;
 		p_Y += p_SpeedY;

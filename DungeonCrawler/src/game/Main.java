@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 import javax.swing.JPanel;
 
@@ -19,14 +22,18 @@ public class Main extends Applet implements Runnable, KeyListener{
 	
 	public static Player player;
 	public static Enemy enemy;
-	private Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost;
+	private Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost, lightning;
 	public static Image tilefloor, tilewall, tiletrap, tileexit, tileentry;
 	private ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
 	private URL base;
 	private Graphics second;
 	public static double frame = 0, frameAdd = .1;
+	public static int level;
 	public static int direction;
-	public static boolean animating = false;
+	public static boolean animating = false, spell_iceshield = false;
+	public static Map map;
+	public static Sound sound;
+	public Animation animation;
 
    @Override
    public void init() {
@@ -40,6 +47,16 @@ public class Main extends Applet implements Runnable, KeyListener{
       addKeyListener(this);
       Frame frame = (Frame) this.getParent().getParent();
       frame.setTitle("Rotkäppchen 2.0");
+      
+      TimerTask action = new TimerTask() {
+    	  	            public void run() {
+    	  	            	sound.play("sound/bg_music.wav");
+    	             }
+    	  	 
+    	  	        };
+    	  	 
+    	  	        Timer caretaker = new Timer();
+    	  	        caretaker.schedule(action, 0, 31767);
       
   	try 
   	{
@@ -63,6 +80,7 @@ public class Main extends Applet implements Runnable, KeyListener{
   		tiletrap = getImage(base, "gfx/Trap.png");
   		tileexit = getImage(base, "gfx/Exit.png");
   		tileentry = getImage(base, "gfx/Exit.png");
+  		lightning = getImage(base, "gfx/iceshield.png");
   		
    }
 
@@ -70,14 +88,18 @@ public class Main extends Applet implements Runnable, KeyListener{
    public void start() 
    {
 	   frame = 0 ;
+	   level = 1 ;
 	   enemy = new Enemy((40+(int)(Math.random()*729)), (40+(int)(Math.random()*601)),25,100);
 	   player = new Player(400,400);
+	   map = new Map();
+	   sound = new Sound();
+	   animation = new Animation(4,4,512,512,200);
 	   Thread thread = new Thread(this);
 	   thread.start();
 	   
        try 
        {
-           level1("maps/map1.txt");
+           map.loadMap("maps/map1.txt");
        } 
        catch (IOException e) 
        {
@@ -86,50 +108,9 @@ public class Main extends Applet implements Runnable, KeyListener{
        
 	   
    }
-   
-	private void level1(String filepath) throws IOException
-	{
-        ArrayList lines = new ArrayList();
-        int width = 0;
-        int height = 0;
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        
-        while (true) 
-        {
-            String line = reader.readLine();
-            
-            	if (line == null) 
-            	{
-            		reader.close();
-            		break;
-            	}
-
-            	if (!line.startsWith("!")) 
-            	{
-            		lines.add(line);
-            		width = Math.max(width, line.length());
-
-            	}
-        }
-        height = lines.size();
-
-        	for (int y = 0; y < height; y++) 
-        	{
-        		String line = (String) lines.get(y);
-        			for (int x = 0; x < width; x++) 
-        			{
-        					if (x < line.length()) 
-        					{
-        						char ch = line.charAt(x);
-        						Tiles t = new Tiles(x, y, Character.toString(ch));
-        						tilearray.add(t);
-        					}
-
-        			}
-        	}
 	
-	}
 
+	//Buffer für Bilder
 	@Override
 	public void update(Graphics g) 
 	{
@@ -163,14 +144,15 @@ public class Main extends Applet implements Runnable, KeyListener{
       while (true) 
       {   	  
     	  updateTiles();
-    	  
+    	  if(spell_iceshield == true) animation.play();
+    	  // frame schwankt zwischen 0 und 2
     	  if(animating == true){
     		   if (frame < 0.5) frameAdd =  .1;
     		   if (frame > 2.5) frameAdd = -.1;
     		   frame += frameAdd;  
     	  }
-    	  player.update();
-    	  enemy.update();
+    	  player.update(); //spieler wird aktualisiert
+    	  enemy.update();  //gegner wird aktualisiert
     	  
     	  repaint();
     	  	try 
@@ -189,22 +171,23 @@ public class Main extends Applet implements Runnable, KeyListener{
    {
 	   paintTiles(g);
 	   g.drawImage(character, player.getP_X(), player.getP_Y(), player.getP_X()+32, player.getP_Y()+32, 32*(int)frame, direction, 32*(int)frame + 32, 32+direction, this);
-	   g.drawImage(enemy_ghost, enemy.getX(), enemy.getY(), enemy.getX()+32, enemy.getY()+32, 32*(int)frame, enemy.getDirection(), 32*(int)frame + 32, 32+enemy.getDirection(), this);
-	   g.drawRect((int)player.r.getX(), (int)player.r.getY(), (int)player.r.getWidth(), (int)player.r.getHeight());
-	   g.setColor(Color.white);
-	   g.drawRect((int)Tiles.r.getX(), (int)Tiles.r.getY(), (int)Tiles.r.getWidth(), (int)Tiles.r.getHeight());
+	   g.drawImage(enemy_ghost, enemy.getX(), enemy.getY(), enemy.getX()+32, enemy.getY()+32, 32*(int)enemy.getFrame(), enemy.getDirection(), 32*(int)enemy.getFrame() + 32, 32+enemy.getDirection(), this);
+//	   g.drawRect((int)player.r.getX(), (int)player.r.getY(), (int)player.r.getWidth(), (int)player.r.getHeight());
+//	   g.setColor(Color.white);
+//	   g.drawRect((int)Tiles.r.getX(), (int)Tiles.r.getY(), (int)Tiles.r.getWidth(), (int)Tiles.r.getHeight());
 	   g.drawImage(health_empty, 100, 700, this);
 	   g.drawImage(health_full, 100, 700 + (67 -  67*player.getLife()/100), 172, 767, 0, 67 -  67*player.getLife()/100, 72, 67, this);
 	   g.drawImage(mana_empty, 628, 700, this);
 	   g.drawImage(mana_full, 628, 700 + (67 -  67*player.getMana()/100), 700, 767, 0, 67 -  67*player.getMana()/100, 72, 67, this);
+	   if(spell_iceshield == true) g.drawImage(lightning, player.getP_X()-42, player.getP_Y()-42, player.getP_X() + 86,player.getP_Y()+ 86, animation.getRow(), animation.getLine(), animation.getRow()+128, animation.getLine()+128, this);
    }
    
    
    private void updateTiles()
    {
-	   for (int i = 0; i < tilearray.size(); i++) 
+	   for (int i = 0; i < map.getTilearray().size(); i++) 
 	   {
-		   Tiles t = (Tiles) tilearray.get(i);
+		   Tiles t = (Tiles) map.getTilearray().get(i);
 		   t.update();
 	   }
    }
@@ -212,9 +195,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	
 	private void paintTiles(Graphics g) 
 	{
-		for (int i = 0; i < tilearray.size(); i++) 
+		for (int i = 0; i < map.getTilearray().size(); i++) 
 		{
-			Tiles t = (Tiles) tilearray.get(i);
+			Tiles t = (Tiles) map.getTilearray().get(i);
 			g.drawImage(t.getTileImage(), t.getTileX(), t.getTileY(), this);
 		}
 	}
@@ -223,10 +206,12 @@ public class Main extends Applet implements Runnable, KeyListener{
 public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
     case KeyEvent.VK_UP:
+    	
     	animating = true;
         player.moveUp();
         player.setMovingUp(true);
         break;
+    	
 
     case KeyEvent.VK_DOWN:
     	animating = true;
@@ -247,6 +232,7 @@ public void keyPressed(KeyEvent e) {
         break;
 
     case KeyEvent.VK_SPACE:
+    	spell_iceshield = true;
         break;
 
     }
@@ -277,8 +263,6 @@ public void keyReleased(KeyEvent e) {
         break;
 
     case KeyEvent.VK_SPACE:
-    	player.setLife(player.getLife() - 13);
-    	player.setMana(player.getMana() - 7);
         break;
 
     }

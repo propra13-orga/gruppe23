@@ -5,12 +5,13 @@ import java.awt.Rectangle;
 public class Enemy {
 	
 	private int x, y, speedX, speedY, damage, life = 100, direction ;
-	private boolean animating;
+	private boolean animating, yAligned , xAligned;
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
     private boolean movingDown = false;
 	public static Rectangle r;
+	private double frame = 0, frameAdd;
 	
 	public Enemy (int x, int y, int damage, int life){
 		
@@ -23,28 +24,31 @@ public class Enemy {
 	
 	public void update(){
 		
-//		if (speedX == 0){
-//			speedY =(int) (Math.random()*3)-1;	
-//		}
-//		if(speedY == 0){
-//			speedX =(int) (Math.random()*3)-1;
-//		}
-	    System.out.println((int)(Math.random()*11)-10);
-	    
-	    if(x == Main.player.getP_X()){
-	    	if (y > Main.player.getP_Y()) moveUp();
-		    else moveDown();
-	    }
-	    
-	    if (y == Main.player.getP_Y()){
-	    	if(x > Main.player.getP_X()) moveLeft();
-	    	else moveRight();
-	    }
+		   if (frame < 0.5) frameAdd =  .1;
+		   if (frame > 2.5) frameAdd = -.1;
+		   frame += frameAdd;
+		
 
+			speedX =(int) (Math.random()*2);
+
+
+			speedY =(int) (Math.random()*2);
+
+if (xAligned == false){	
+if(x > Main.player.getP_X()){ x -= speedX; direction = 32;}
+else if(x < Main.player.getP_X()) { x += speedX; direction = 64; }
+else if(x == Main.player.getP_X()) xAligned = true;
+}
+
+if (xAligned == true){	
+if(y > Main.player.getP_Y()){ y -= speedX; direction = 96;}
+else if(y < Main.player.getP_Y()){ y += speedX; direction = 0;}
+else if(y == Main.player.getP_Y()) xAligned = false;
+}
 	   
 		
-		x += speedX;
-		y += speedY;
+//		x += speedX;
+//		y += speedY;
 		
 		r.setBounds(x, y, 32, 32);
 		
@@ -56,8 +60,8 @@ public class Enemy {
 	public void checkCollision(Rectangle r){
 		if(r.intersects(this.r)){
 			Main.player.setLife(Main.player.getLife()-damage);
-			x = 0;
-			y = 0;
+			x = (40+(int)(Math.random()*729));
+			y = (40+(int)(Math.random()*601));
 		}
 	}
 	
@@ -159,6 +163,14 @@ public class Enemy {
 
 	public static void setR(Rectangle r) {
 		Enemy.r = r;
+	}
+
+	public double getFrame() {
+		return frame;
+	}
+
+	public void setFrame(double frame) {
+		this.frame = frame;
 	}
 	
 	

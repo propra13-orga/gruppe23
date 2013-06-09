@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.IOException;
 
 public class Tiles {
 	
@@ -9,13 +10,14 @@ public class Tiles {
     public String type;
     public Image tileImage;
     public String floor = " ", wall = "#" , empty = "+", trap = "F", exit = "A", entry = "E";
-    public static Rectangle r, t;
+    public static Rectangle r, t, e;
     
     public Tiles (int x, int y, String typeInt) {
         tileX = x * 40;
         tileY = y * 40;
         r = new Rectangle();
         t = new Rectangle();
+        e = new Rectangle();
 
         type = typeInt;
 
@@ -42,14 +44,22 @@ public class Tiles {
 
     }
     
-    public void checkCollision(Rectangle rect){
-        if (rect.intersects(r)){
-        if(Main.direction == 32) Main.player.setP_X(Main.player.getP_X() + 1);
-        if(Main.direction == 64) Main.player.setP_X(Main.player.getP_X() - 1);
-        if(Main.direction == 96) Main.player.setP_Y(Main.player.getP_Y() + 1);
-        if(Main.direction == 0) Main.player.setP_Y(Main.player.getP_Y() - 1);
+    public void checkCollision(Rectangle up , Rectangle right, Rectangle down, Rectangle left){
+        if (up.intersects(r)){
+        	Main.player.setP_Y(Main.player.getP_Y() + 1);
         }
         
+        if (right.intersects(r)){
+        	Main.player.setP_X(Main.player.getP_X() - 1);
+        }
+        
+        if (down.intersects(r)){
+        	Main.player.setP_Y(Main.player.getP_Y() - 1);
+        }
+        
+        if (left.intersects(r)){
+        	Main.player.setP_X(Main.player.getP_X() + 1);
+        }
 
         }
     
@@ -59,17 +69,55 @@ public class Tiles {
         }
     }
     
+    public void checkExit(Rectangle rect){
+        if(rect.intersects(e)){
+        	
+        	switch(Main.level){
+        	case 1:       		
+        		try {
+        			Main.map.loadMap("maps/map2.txt");
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+        		Main.level = 2;
+        		break;
+        		
+        	case 2:        		
+        		try {
+        			Main.map.loadMap("maps/map3.txt");
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+        		Main.level = 3;
+        		break;
+        		
+        				}
+        	
+        	
+        	System.out.println(Main.level);
+        	
+        	
+        }
+    }
+    
     public void update(){
     	
         r.setBounds(tileX, tileY, 40, 40);
         t.setBounds(tileX+19, tileY+19, 2, 2);
+        e.setBounds(tileX+19, tileY+19, 2, 2);
         
         if (type.equals(wall)){
-            checkCollision(Player.r);
+            checkCollision(Player.up, Player.right , Player.down , Player.left);
         }
         
         if (type.equals(trap)){
             checkTrap(Player.r);	
+        }
+        
+        if (type.equals(exit)){
+            checkExit(Player.r);	
         }
         
     	
