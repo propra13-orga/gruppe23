@@ -5,35 +5,35 @@ import java.awt.Rectangle;
 public class Enemy {
 	
 	private int x, y, speedX, speedY, damage, life = 100, direction ;
-	private boolean animating, yAligned , xAligned;
-    private boolean movingLeft = false;
-    private boolean movingRight = false;
-    private boolean movingUp = false;
-    private boolean movingDown = false;
+	private boolean yAligned , xAligned;
 	public static Rectangle r;
 	private double frame = 0, frameAdd;
+	
+	//Eigenschaften des Feindes:
 	
 	public Enemy (int x, int y, int damage, int life){
 		
 		this.x = x;
 		this.y = y;
-		this.damage = damage;
-		this.life = life;
-		r = new Rectangle();
+		this.damage = damage; //Schaden, den der Gegner anrichtet
+		this.life = life; //Leben des Gegners
+		r = new Rectangle(); //Rechteck am Gegner
 	}
 	
 	public void update(){
-		
-		   if (frame < 0.5) frameAdd =  .1;
+		//frame ist der Faktor, um den die Position des auszuschneidenden Bildes aus den Grafiken der Gegner verschoben wird
+		   if (frame < 0.5) frameAdd =  .1; //frameadd entspricht der Animier-Geschwindigkeit
 		   if (frame > 2.5) frameAdd = -.1;
 		   frame += frameAdd;
 		
 
-			speedX =(int) (Math.random()*2);
+			speedX =(int) (Math.random()*2); //zufällige X-Geschwindigkeit des Gegners
 
 
-			speedY =(int) (Math.random()*2);
+			speedY =(int) (Math.random()*2); //zufällige Y-Geschwindigkeit
 
+		//Spieler verfolgen:
+			
 if (xAligned == false){	
 if(x > Main.player.getP_X()){ x -= speedX; direction = 32;}
 else if(x < Main.player.getP_X()) { x += speedX; direction = 64; }
@@ -45,54 +45,25 @@ if(y > Main.player.getP_Y()){ y -= speedX; direction = 96;}
 else if(y < Main.player.getP_Y()){ y += speedX; direction = 0;}
 else if(y == Main.player.getP_Y()) xAligned = false;
 }
-	   
+
 		
-//		x += speedX;
-//		y += speedY;
+		r.setBounds(x, y, 32, 32); //Quadrat um den Geiste herum
 		
-		r.setBounds(x, y, 32, 32);
-		
-		checkCollision(Main.player.r);
+		checkCollision(Main.player.r); //Abfrage nach Kollision mit dem Spieler
 		
 		
 	}
 	
-	public void checkCollision(Rectangle r){
+	public void checkCollision(Rectangle r){ //Abfrage nach Kollision
 		if(r.intersects(this.r)){
-			Main.player.setLife(Main.player.getLife()-damage);
-			x = (40+(int)(Math.random()*729));
-			y = (40+(int)(Math.random()*601));
+			Main.player.setLife(Main.player.getLife()-damage); //ziehe Leben des Spielers ab
+			x = (40+(int)(Math.random()*729)); //setzte Gegner auf zufällige X-Koordinate des Spielfelds
+			y = (40+(int)(Math.random()*601)); //setzte Gegner auf zufällige Y-Koordinate des Spielfelds
 		}
 	}
+
+//Getters und Setters:
 	
-	public void moveRight() {
-		animating = true;
-	direction = 64;
-	speedX = 1;
-//	speedY =  0;
-	}
-
-	public void moveLeft() {
-		animating = true;
-	direction = 32;
-	speedX = -1;
-//	speedY =  0;
-	}
-	
-	public void moveUp() {
-		animating = true;
-    direction = 96;
-	speedY = -1;
-//	speedX = 0;
-	}
-
-	public void moveDown() {
-		animating = true;
-	direction = 0;
-	speedY =  1;
-//	speedX = 0;
-	}
-
 	public int getX() {
 		return x;
 	}
@@ -119,10 +90,6 @@ else if(y == Main.player.getP_Y()) xAligned = false;
 
 	public int getDirection() {
 		return direction;
-	}
-
-	public boolean isAnimating() {
-		return animating;
 	}
 
 	public static Rectangle getR() {
@@ -155,10 +122,6 @@ else if(y == Main.player.getP_Y()) xAligned = false;
 
 	public void setDirection(int direction) {
 		this.direction = direction;
-	}
-
-	public void setAnimating(boolean animating) {
-		this.animating = animating;
 	}
 
 	public static void setR(Rectangle r) {

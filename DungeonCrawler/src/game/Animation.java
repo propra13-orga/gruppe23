@@ -37,7 +37,6 @@ public void play(){
 		   if (casted == false){		// Wird nicht ausgeführt wenn der Zauber wirkt	   
 		   frame +=  frameadd;
 		   row = ((int) (frame) - 6) * (width/rows);
-//		   System.out.println(frame);
 		   line = (height/lines)*2;
 		   }
 		   
@@ -60,7 +59,6 @@ public void play(){
 		   count += 1;
 		   manaminus += .1 ;
 		   if(manaminus > 1.1){
-			   System.out.println(manaminus);
 			   manaminus = 0.5;
 		   }
 		   Main.player.setMana(Main.player.getMana() - (int)(manaminus));
