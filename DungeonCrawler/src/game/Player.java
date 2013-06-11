@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 public class Player {
 	
-	public int p_X, p_Y, p_SpeedX, p_SpeedY, life = 100, mana = 100, damage = 0;
+	public int p_X, p_Y, p_SpeedX, p_SpeedY, life, mana, damage = 0;
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -15,27 +15,32 @@ public class Player {
     public static Rectangle left = new Rectangle (0,0,0,0);
     public static Rectangle r = new Rectangle (0,0,0,0);
 	
-	public Player (int x, int y){
+	//Eigenschaften des Players:
+    
+    public Player (int x, int y){
 		
 		p_X = x;
 		p_Y = y;
-		p_SpeedX = 0;
-		p_SpeedY = 0;
-		life = 100;
+		p_SpeedX = 0; //Geschwindigkeit in X-Richtung
+		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
+		life = 100; //setze Lebens auf 100
+		mana = 100; //setze Mana auf 100
 		
 	}
 	
 	public void update() {
 		
-		up.setBounds(p_X+16, p_Y, 1, 1);
-		right.setBounds(p_X + 31, p_Y + 16, 1, 1);
+		up.setBounds(p_X+16, p_Y, 1, 1); //oberer Punkt am Spieler (zur Prüfung nach Kollisionen)
+		right.setBounds(p_X + 31, p_Y + 16, 1, 1); //rechter Punkt etc.
 		down.setBounds(p_X + 16, p_Y + 31, 1, 1);
 		left.setBounds(p_X, p_Y + 16, 1, 1);
-		r.setBounds(p_X, p_Y, 32, 32);
-		p_X += p_SpeedX;
-		p_Y += p_SpeedY;
+		r.setBounds(p_X, p_Y, 32, 32); //Quadrat um den Spieler herum
+		p_X += p_SpeedX; //Verschiebung des Spielers (Bewegung in X-Richtung)
+		p_Y += p_SpeedY; //Verschiebung des Spielers (Bewegung in Y-Richtung)
 
 	}
+	
+	//Methoden zur Steuerung:
 
 		public void moveRight() {
 		Main.animating = true;
@@ -65,7 +70,7 @@ public class Player {
 		p_SpeedX = 0;
 		}
 		
-		   
+		   //stoppen des Spielers; Abfrage, ob nach Loslassen einer Richtungstaste noch eine weitere Richtungstastee gedrückt ist. Wenn ja, laufe in die gegebene Richtung
 
 		public void stop() {
 	        if (isMovingRight() == false && isMovingLeft() == false) {
@@ -93,6 +98,8 @@ public class Player {
 	        }
 
 		}
+		
+		//Methoden zum Anhalten des Spielers; werden ausgeführt bei Loslassen der Richtungstasten
 		
 		public void stopUp(){
 			setMovingUp(false);

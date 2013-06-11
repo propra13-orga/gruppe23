@@ -34,33 +34,31 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static Map map;
 	public static Sound sound;
 	public Animation animation;
+	public Inventory invent;
 
    @Override
    public void init() {
-	   
-	   
-	   
 
-      setSize(800, 800);
-      setBackground(Color.BLACK);
-      setFocusable(true);
-      addKeyListener(this);
-      Frame frame = (Frame) this.getParent().getParent();
-      frame.setTitle("Rotkäppchen 2.0");
+      setSize(800, 800); //Größe des Fensters
+      setBackground(Color.BLACK); //Hintergrundfarbe des Fensters
+      setFocusable(true); //Fokus auf das Fenster setzen
+      addKeyListener(this); 
+      Frame frame = (Frame) this.getParent().getParent(); 
+      frame.setTitle("Rotkäppchen 2.0"); //Fenster-Titel
       
-      TimerTask action = new TimerTask() {
+      TimerTask action = new TimerTask() { //Timertask, der den Sound abspielt
     	  	            public void run() {
     	  	            	sound.play("sound/bg_music.wav");
     	             }
     	  	 
     	  	        };
     	  	 
-    	  	        Timer caretaker = new Timer();
-    	  	        caretaker.schedule(action, 0, 31767);
+    	  	        Timer caretaker = new Timer(); //neuen Timer erstellen
+    	  	        caretaker.schedule(action, 0, 31767); //Timertask alle 31,767 Sekunden ausführen
       
   	try 
   	{
-  		base = getDocumentBase();
+  		base = getDocumentBase(); //Pfad des Spiels
   	} 
   	catch (Exception e) 
   	{
@@ -68,7 +66,8 @@ public class Main extends Applet implements Runnable, KeyListener{
   	}
 
 
-  		// Image Setups
+  		// Bilder:
+  	
   		character = getImage(base, "gfx/MainChar.png");
   		enemy_ghost = getImage(base,"gfx/Geist.png");
   		tilefloor = getImage(base, "gfx/Tile_Floor.png");
@@ -94,16 +93,17 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   map = new Map();
 	   sound = new Sound();
 	   animation = new Animation(4,4,512,512,200);
+	   invent = new Inventory();
 	   Thread thread = new Thread(this);
 	   thread.start();
 	   
        try 
        {
-           map.loadMap("maps/map1.txt");
+           map.loadMap("maps/map1.txt"); //Karte laden
        } 
        catch (IOException e) 
        {
-           e.printStackTrace();
+           e.printStackTrace(); 
        }
        
 	   
@@ -172,9 +172,6 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   paintTiles(g);
 	   g.drawImage(character, player.getP_X(), player.getP_Y(), player.getP_X()+32, player.getP_Y()+32, 32*(int)frame, direction, 32*(int)frame + 32, 32+direction, this);
 	   g.drawImage(enemy_ghost, enemy.getX(), enemy.getY(), enemy.getX()+32, enemy.getY()+32, 32*(int)enemy.getFrame(), enemy.getDirection(), 32*(int)enemy.getFrame() + 32, 32+enemy.getDirection(), this);
-//	   g.drawRect((int)player.r.getX(), (int)player.r.getY(), (int)player.r.getWidth(), (int)player.r.getHeight());
-//	   g.setColor(Color.white);
-//	   g.drawRect((int)Tiles.r.getX(), (int)Tiles.r.getY(), (int)Tiles.r.getWidth(), (int)Tiles.r.getHeight());
 	   g.drawImage(health_empty, 100, 700, this);
 	   g.drawImage(health_full, 100, 700 + (67 -  67*player.getLife()/100), 172, 767, 0, 67 -  67*player.getLife()/100, 72, 67, this);
 	   g.drawImage(mana_empty, 628, 700, this);
@@ -201,6 +198,8 @@ public class Main extends Applet implements Runnable, KeyListener{
 			g.drawImage(t.getTileImage(), t.getTileX(), t.getTileY(), this);
 		}
 	}
+	
+	//Steuerung:
 
 @Override
 public void keyPressed(KeyEvent e) {
@@ -234,7 +233,31 @@ public void keyPressed(KeyEvent e) {
     case KeyEvent.VK_SPACE:
     	spell_iceshield = true;
         break;
-
+        
+    case KeyEvent.VK_1:
+    	invent.addItem(1);
+    	invent.printInv();
+    	break;
+    	
+    case KeyEvent.VK_2:
+    	invent.addItem(2);
+    	invent.printInv();
+    	break;
+    	
+    case KeyEvent.VK_3:
+    	invent.addItem(3);
+    	invent.printInv();
+    	break;
+    	
+    case KeyEvent.VK_4:
+    	invent.addItem(4);
+    	invent.printInv();
+    	break;
+    	
+    case KeyEvent.VK_5:
+    	invent.addItem(5);
+    	invent.printInv();
+    	break;
     }
 	
 }
