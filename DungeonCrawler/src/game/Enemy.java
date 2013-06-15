@@ -4,10 +4,13 @@ import java.awt.Rectangle;
 
 public class Enemy {
 	
-	private int x, y, speedX, speedY, damage, life = 100, direction ;
+	private int x, y, speedX, speedY, damage ;
+	private int direction;
 	private boolean yAligned , xAligned;
 	public static Rectangle r;
 	private double frame = 0, frameAdd;
+	int life = 100;
+	private boolean visible;
 	
 	//Eigenschaften des Feindes:
 	
@@ -18,6 +21,13 @@ public class Enemy {
 		this.damage = damage; //Schaden, den der Gegner anrichtet
 		this.life = life; //Leben des Gegners
 		r = new Rectangle(); //Rechteck am Gegner
+		
+		
+	}
+	
+	public void dies(){
+		
+		
 	}
 	
 	public void update(){

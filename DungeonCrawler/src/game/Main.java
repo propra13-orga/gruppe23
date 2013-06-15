@@ -22,7 +22,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	
 	public static Player player;
 	public static Enemy enemy;
-	private Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost, lightning;
+	private Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost, iceshield, lightningclaw;
 	public static Image tilefloor, tilewall, tiletrap, tileexit, tileentry;
 	private ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
 	private URL base;
@@ -30,11 +30,16 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static double frame = 0, frameAdd = .1;
 	public static int level;
 	public static int direction;
-	public static boolean animating = false, spell_iceshield = false;
+	public static boolean animating = false, spell_iceshield = false, lightning_claw = false;
 	public static Map map;
 	public static Sound sound;
 	public Animation animation;
 	public Inventory invent;
+	private int damage;
+	public static Item item;
+	public static Player mana;
+
+	
 
    @Override
    public void init() {
@@ -79,8 +84,9 @@ public class Main extends Applet implements Runnable, KeyListener{
   		tiletrap = getImage(base, "gfx/Trap.png");
   		tileexit = getImage(base, "gfx/Exit.png");
   		tileentry = getImage(base, "gfx/Exit.png");
-  		lightning = getImage(base, "gfx/iceshield.png");
-  		
+  		iceshield = getImage(base, "gfx/iceshield.png");
+  		lightningclaw = getImage(base, "gfx/lightningclaw.png");
+ 	
    }
 
    @Override
@@ -93,7 +99,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   map = new Map();
 	   sound = new Sound();
 	   animation = new Animation(4,4,512,512,200);
+	   item = new Item();
 	   invent = new Inventory();
+	   invent.startupInventory(1, 5);
 	   Thread thread = new Thread(this);
 	   thread.start();
 	   
@@ -144,7 +152,12 @@ public class Main extends Applet implements Runnable, KeyListener{
       while (true) 
       {   	  
     	  updateTiles();
-    	  if(spell_iceshield == true) animation.play();
+		
+    	  if(lightning_claw == true) 
+    		  animation.play();
+    	  if(spell_iceshield == true)
+    		  animation.play();
+    	  
     	  // frame schwankt zwischen 0 und 2
     	  if(animating == true){
     		   if (frame < 0.5) frameAdd =  .1;
@@ -176,7 +189,10 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   g.drawImage(health_full, 100, 700 + (67 -  67*player.getLife()/100), 172, 767, 0, 67 -  67*player.getLife()/100, 72, 67, this);
 	   g.drawImage(mana_empty, 628, 700, this);
 	   g.drawImage(mana_full, 628, 700 + (67 -  67*player.getMana()/100), 700, 767, 0, 67 -  67*player.getMana()/100, 72, 67, this);
-	   if(spell_iceshield == true) g.drawImage(lightning, player.getP_X()-42, player.getP_Y()-42, player.getP_X() + 86,player.getP_Y()+ 86, animation.getRow(), animation.getLine(), animation.getRow()+128, animation.getLine()+128, this);
+	   if(spell_iceshield == true) g.drawImage(iceshield, player.getP_X()-42, player.getP_Y()-42, player.getP_X() + 86,player.getP_Y()+ 86, animation.getRow(), animation.getLine(), animation.getRow()+128, animation.getLine()+128, this);
+	   if(lightning_claw == true) g.drawImage(lightningclaw, enemy.getX()-42, enemy.getY()-42, enemy.getX()+86,enemy.getY()+86,animation.getRow(), animation.getLine(), animation.getRow()+128, animation.getLine()+128, this);	   
+  
+   
    }
    
    
@@ -231,36 +247,29 @@ public void keyPressed(KeyEvent e) {
         break;
 
     case KeyEvent.VK_SPACE:
-    	spell_iceshield = true;
-        break;
+    	if(Player.mana == 0){
+    		spell_iceshield = false;
+    	}
+    	else spell_iceshield = true;
+    	break;
         
-    case KeyEvent.VK_1:
-    	invent.addItem(1);
-    	invent.printInv();
+    case KeyEvent.VK_I:
+    	invent.showInventory();
+    	break;
+ 
+    case KeyEvent.VK_A:
+    	lightning_claw = true;
+    
+    	if(Player.mana == 0){
+    		lightning_claw = false;    		
+    	}
+    	else lightning_claw = true;
     	break;
     	
-    case KeyEvent.VK_2:
-    	invent.addItem(2);
-    	invent.printInv();
-    	break;
-    	
-    case KeyEvent.VK_3:
-    	invent.addItem(3);
-    	invent.printInv();
-    	break;
-    	
-    case KeyEvent.VK_4:
-    	invent.addItem(4);
-    	invent.printInv();
-    	break;
-    	
-    case KeyEvent.VK_5:
-    	invent.addItem(5);
-    	invent.printInv();
-    	break;
     }
 	
 }
+
 
 @Override
 public void keyReleased(KeyEvent e) {
@@ -287,6 +296,11 @@ public void keyReleased(KeyEvent e) {
 
     case KeyEvent.VK_SPACE:
         break;
+        
+    case KeyEvent.VK_A:
+    	lightning_claw = false;
+    	break;
+    
 
     }
 	
@@ -297,4 +311,6 @@ public void keyTyped(KeyEvent e) {
 	// TODO Auto-generated method stub
 	
 }
+
+
 }

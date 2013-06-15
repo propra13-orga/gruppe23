@@ -66,6 +66,7 @@ public void play(){
 			   casted = false;
 			   count -= 1;
 			   manaminus = 0;
+
 		   }
 	   }
 }

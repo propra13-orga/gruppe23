@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 public class Player {
 	
-	public int p_X, p_Y, p_SpeedX, p_SpeedY, life, mana, damage = 0;
+	public int p_X, p_Y, p_SpeedX, p_SpeedY;
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -14,6 +14,11 @@ public class Player {
     public static Rectangle down = new Rectangle (0,0,0,0);
     public static Rectangle left = new Rectangle (0,0,0,0);
     public static Rectangle r = new Rectangle (0,0,0,0);
+	public static int attack;
+	public static int defense;
+	public static int life = 100; //setze Lebens auf 100
+	public static int mana = 100;
+	private int damage;
 	
 	//Eigenschaften des Players:
     
@@ -23,8 +28,7 @@ public class Player {
 		p_Y = y;
 		p_SpeedX = 0; //Geschwindigkeit in X-Richtung
 		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
-		life = 100; //setze Lebens auf 100
-		mana = 100; //setze Mana auf 100
+		
 		
 	}
 	
@@ -129,6 +133,7 @@ public class Player {
 			
 		}
 		
+		
 		public void useItem(){
 			
 		}
@@ -224,6 +229,17 @@ public class Player {
 		public void setMana(int mana) {
 			this.mana = mana;
 		}
+		
+		//Erzeugt die Magie an der aktuellen Position des Spielers
+		//und liefert diesen zurueck
+		
+			//public Magic generateMagic(){
+			//int x_pos = 0;
+			//int y_pos = 0;
+			//Magic magic = new Magic(x_pos, y_pos);
+			
+			//return magic;
+		//}
 		
 		
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Map {
 	
-	private ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
+	ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
 	
 	public Map(){
 		
