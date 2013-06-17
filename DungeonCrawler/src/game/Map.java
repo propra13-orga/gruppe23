@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 public class Map {
 	
-	ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
+	private ArrayList<Tiles> tilearray = new ArrayList<Tiles>();
 	
 	public Map(){
 		
@@ -60,6 +61,9 @@ public class Map {
 	public ArrayList<Tiles> getTilearray() {
 		return tilearray;
 	}
+	
+
+	
 
 	public void setTilearray(ArrayList<Tiles> tilearray) {
 		this.tilearray = tilearray;

@@ -1,14 +1,26 @@
 package game;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.io.IOException;
 
 public class Player {
-	
+
 	public int p_X, p_Y, p_SpeedX, p_SpeedY;
+	public static int life;
+	public static int mana;
+	public int damage = 0;
+	public int frame = 0;
+	public int frameAdd = 1;
+	public int direction;
+	public static int lastCheckpointX = 84, lastCheckpointY = 84;
+	private long lastFrame = System.currentTimeMillis() , frameTimer = 200;
+	protected final int PLAYER_SPEED = 1;
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
     private boolean movingDown = false;
+    private boolean animating = false;
     public static Rectangle up = new Rectangle (0,0,0,0);
     public static Rectangle right = new Rectangle (0,0,0,0);
     public static Rectangle down = new Rectangle (0,0,0,0);
@@ -16,9 +28,6 @@ public class Player {
     public static Rectangle r = new Rectangle (0,0,0,0);
 	public static int attack;
 	public static int defense;
-	public static int life = 100; //setze Lebens auf 100
-	public static int mana = 100;
-	private int damage;
 	
 	//Eigenschaften des Players:
     
@@ -28,49 +37,160 @@ public class Player {
 		p_Y = y;
 		p_SpeedX = 0; //Geschwindigkeit in X-Richtung
 		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
-		
+		life = 100; //setze Leben auf 100
+		mana = 100; //setze Mana auf 100
 		
 	}
 	
-	public void update() {
+public void update() {
 		
-		up.setBounds(p_X+16, p_Y, 1, 1); //oberer Punkt am Spieler (zur Prüfung nach Kollisionen)
-		right.setBounds(p_X + 31, p_Y + 16, 1, 1); //rechter Punkt etc.
-		down.setBounds(p_X + 16, p_Y + 31, 1, 1);
-		left.setBounds(p_X, p_Y + 16, 1, 1);
+		animation();
+		
+		if(life <= 0){
+			Main.boss.getShoot().clear(); //lösche Schüsse aus Arraylist
+			Main.boss.setLife(100); //setze Leben des Bossgegners = 100
+			Main.room = Tiles.lastRoomCheck;
+			
+			if(Main.room == 1){	
+			try {
+				Main.map.loadMap("maps/map1.txt"); //lade Karte 1
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 2){	
+			try {
+				Main.map.loadMap("maps/map2.txt"); //lade Karte 2
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 3){	
+			try {
+				Main.map.loadMap("maps/map3.txt"); //lade Karte 3
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 4){	
+			try {
+				Main.map.loadMap("maps/map4.txt"); //lade Karte 4
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 5){	
+			try {
+				Main.map.loadMap("maps/map5.txt"); //lade Karte 5
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 6){	
+			try {
+				Main.map.loadMap("maps/map6.txt"); //lade Karte 6
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			
+			if(Main.room == 7){	
+			try {
+				Main.map.loadMap("maps/map7.txt"); //lade Karte 7
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 8){	
+			try {
+				Main.map.loadMap("maps/map8.txt"); //lade Karte 8
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+			if(Main.room == 9){	
+			try {
+				Main.map.loadMap("maps/map9.txt"); //lade Karte 9
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			Main.inMenue = true; //zeichne Menü
+		}
+		
+		up.setBounds(p_X+1, p_Y, 30, 1); //oberer Punkt am Spieler (zur Prüfung nach Kollisionen)
+		right.setBounds(p_X + 32, p_Y+1, 1, 30); //rechter Punkt etc.
+		down.setBounds(p_X +1, p_Y + 32, 30, 1);
+		left.setBounds(p_X, p_Y + 1, 1, 30);
 		r.setBounds(p_X, p_Y, 32, 32); //Quadrat um den Spieler herum
 		p_X += p_SpeedX; //Verschiebung des Spielers (Bewegung in X-Richtung)
 		p_Y += p_SpeedY; //Verschiebung des Spielers (Bewegung in Y-Richtung)
+		
 
+	}
+	
+	public void draw(Graphics g){
+		
+		   g.drawImage(Main.character, p_X, p_Y, p_X+32, p_Y+32, 32*frame, direction, 32*frame + 32, 32+direction, null); //zeichnet Spieler
+
+	}
+	
+	public void animation(){
+	if(System.currentTimeMillis() - lastFrame > frameTimer){	
+  	  if(animating == true){
+  		  frame += frameAdd;
+		   if (frame < 0){frame = 1; frameAdd =  1;}
+		   if (frame > 2){frame = 1; frameAdd = -1;}
+		   lastFrame = System.currentTimeMillis();
+		   
+  	  }
+	  }
 	}
 	
 	//Methoden zur Steuerung:
 
 		public void moveRight() {
-		Main.animating = true;
-		Main.direction = 64;
-		p_SpeedX =  1;
+		animating = true;
+		direction = 64;
+		p_SpeedX =  1 * PLAYER_SPEED;
 		p_SpeedY =  0;
 		}
 
 		public void moveLeft() {
-			Main.animating = true;
-		Main.direction = 32;
-		p_SpeedX = -1;
+		animating = true;
+		direction = 32;
+		p_SpeedX = -1 * PLAYER_SPEED;
 		p_SpeedY =  0;
 		}
 		
 		public void moveUp() {
-			Main.animating = true;
-	    Main.direction = 96;
-		p_SpeedY = -1;
+		animating = true;
+	    direction = 96;
+		p_SpeedY = -1 * PLAYER_SPEED;
 		p_SpeedX = 0;
 		}
 
 		public void moveDown() {
-			Main.animating = true;
-		Main.direction = 0;
-		p_SpeedY =  1;
+		animating = true;
+		direction = 0;
+		p_SpeedY =  1 * PLAYER_SPEED;
 		p_SpeedX = 0;
 		}
 		
@@ -106,24 +226,31 @@ public class Player {
 		//Methoden zum Anhalten des Spielers; werden ausgeführt bei Loslassen der Richtungstasten
 		
 		public void stopUp(){
+			animating = false;
 			setMovingUp(false);
 			stop();
 		}
 		
 		public void stopDown(){
+			animating = false;
 			setMovingDown(false);
 			stop();
 		}
 		
 		public void stopLeft(){
+			animating = false;
 			setMovingLeft(false);
 			stop();
 		}
 		
 		public void stopRight(){
+			animating = false;
 			setMovingRight(false);
 			stop();
 		}
+		
+		
+		//Automatische Methoden:
 
 		public void attack() {
 
@@ -132,7 +259,6 @@ public class Player {
 		public void castSpell(){
 			
 		}
-		
 		
 		public void useItem(){
 			
@@ -150,6 +276,8 @@ public class Player {
 			damage = 0;
 		}
 
+		//Getters und Setters:
+		
 		public int getP_X() {
 			return p_X;
 		}
@@ -229,17 +357,6 @@ public class Player {
 		public void setMana(int mana) {
 			this.mana = mana;
 		}
-		
-		//Erzeugt die Magie an der aktuellen Position des Spielers
-		//und liefert diesen zurueck
-		
-			//public Magic generateMagic(){
-			//int x_pos = 0;
-			//int y_pos = 0;
-			//Magic magic = new Magic(x_pos, y_pos);
-			
-			//return magic;
-		//}
 		
 		
 

@@ -1,4 +1,4 @@
-package main_package;
+package game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -14,7 +14,7 @@ public class Menue {
 	
 	public Menue(){
 		
-		//Bilder des Menüs werden geladen
+		//Bilder des Menues werden geladen
 		
 		try {
 			bg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/background.png"));
@@ -34,6 +34,8 @@ public class Menue {
 			e.printStackTrace();
 		}
 	}
+	
+	//Bilder werden gezeichnet:
 	
 	public void draw(Graphics g){
 		

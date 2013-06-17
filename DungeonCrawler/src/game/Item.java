@@ -1,34 +1,14 @@
 package game;
 
-import java.util.*;
 
-public class Item
+
+public abstract class Item 
 {
-	public Object[] itemlist_obj = new Item[10];
-	public int itemprice;
-	public static Weapon Axe;
-	public static Weapon Sword;
-	public static Weapon Spear;
-	public static Potion Mana_Small;
-	public static Potion Mana_Big;
-	public static Potion Health_Small;
-	public static Potion Health_Big;
-	public static Potion All_Small;
-	public static Potion All_Medium;
+
+	protected int itemprice;
+	protected String name;
 	
-	public void newItemlist()
-	{
-		itemlist_obj[0] = (Axe = new Weapon(5, 2, 10));
-		itemlist_obj[1] = (Sword = new Weapon(4, 3, 10));
-		itemlist_obj[2] = (Spear = new Weapon(3, 4, 10));
-		itemlist_obj[3] = (Mana_Small = new Potion(0, 10, 5));
-		itemlist_obj[4] = (Mana_Big = new Potion(0, 30, 10));
-		itemlist_obj[5] = (Health_Small = new Potion(10, 0, 5));
-		itemlist_obj[6] = (Health_Big = new Potion(30, 0, 10));
-		itemlist_obj[7] = (All_Small = new Potion(5, 5, 5));
-		itemlist_obj[8] = (All_Medium = new Potion(15, 15, 10));
-	}
-	
+		
 	
 
 	/*
@@ -60,32 +40,47 @@ public class Item
 		
 	}*/
 	
+	public String getName(Object value)
+	{
+		for (int i=0; i < Main.itemlist.size(); i++) 
+        {
+             if (Main.itemlist.get(i) == value)
+             {
+           	  if(i == 0 || i == 1 )
+           	  {	  
+           		  Weapon Name_Weapon = (Weapon) Main.itemlist.get(i);
+           		 this.name = Name_Weapon.name;
+           	  } 
+           	  if(i > 1)
+           	  {
+           		  Potion Name_Potion = (Potion) Main.itemlist.get(i);
+           		  this.name = Name_Potion.name;
+           	  }
+             }
+        }
+		return name;
+	}
+	
 	public int getPrice(Object value)
 	{
 		
-		
-		for (int i=0; i < itemlist_obj.length; i++) 
+		for (int i=0; i < Main.itemlist.size(); i++) 
         {
-             if (itemlist_obj[i] == value)
+             if (Main.itemlist.get(i) == value)
              {
-           	  if(i == 0 || i < 2 )
+           	  if(i == 0 || i == 1 )
            	  {	  
-           		  Weapon Price_Weapon = (Weapon) itemlist_obj[i];
-           		 this.itemprice = Price_Weapon.price;
+           		  Weapon Price_Weapon = (Weapon) Main.itemlist.get(i);
+           		 this.itemprice = Price_Weapon.itemprice;
            	  } 
-           	  
-           	  if(i > 2)
+           	  if(i > 1)
            	  {
-           		  Potion Price_Potion = (Potion) itemlist_obj[i];
-           		  this.itemprice = Price_Potion.price;
+           		  Potion Price_Potion = (Potion) Main.itemlist.get(i);
+           		  this.itemprice = Price_Potion.itemprice;
            	  }
-           	  
            	  
              }
         }
 		return itemprice;
 	}
-	
-	
-	
 }

@@ -5,13 +5,15 @@ public class Weapon extends Item
 {
 	public int damage;
 	public int defense;
-	public int price;
 	
-	public Weapon(int damage, int defense, int price)
+	
+	
+	public Weapon(String name, int damage, int defense, int price)
 	{
+		this.name = name;
 		this.damage = damage;
 		this.defense = defense;
-		this.price = price;
+		this.itemprice = price;
 	}
 	
 	public void isEquipped()
