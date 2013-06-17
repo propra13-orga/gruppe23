@@ -51,13 +51,14 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static int room, level;
 	public static int direction;
 	public static boolean animating = false, spell_iceshield = false, inMenue = true, lightningclaw = false;
-	
+	public static boolean ccheckpoint = false;
+	public static boolean checkpoint_reached=false;
 
 	//inMenue=true: zeichne Menü; inMenue=false: zeichne Spielraum; spell_iceshield=false/true: Schutzschild aus/an;
 
 	public String playerName;
 	private Tiles t;
-	public static boolean ccheckpoint = false;
+	
 	
 
    @Override

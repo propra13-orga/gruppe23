@@ -7,6 +7,7 @@ import java.io.IOException;
 public class Player {
 
 	public int p_X, p_Y, p_SpeedX, p_SpeedY;
+	public int total_life;
 	public static int life;
 	public static int mana;
 	public int damage = 0;
@@ -39,9 +40,33 @@ public class Player {
 		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
 		life = 100; //setze Leben auf 100
 		mana = 100; //setze Mana auf 100
-		
+		total_life = 3; // 3 Leben eingerichtet
 	}
-	
+    public void Death(){ 
+		// Wenn 3 Mal Gestorben zurück ins Menü
+    	if (total_life > 0) {
+    		Main.inMenue = false;
+    		if (Main.checkpoint_reached == false) {
+    			Main.player.setP_X(Tiles.q);
+    			Main.player.setP_Y(Tiles.w);
+    			Main.player.setLife(100);}
+    		else {
+    			Main.player.setP_X(Tiles.a);
+    			Main.player.setP_Y(Tiles.b);
+    			Main.player.setLife(100);
+
+}
+}
+
+    	else {
+    		Main.level = 1;
+    		Main.room = 1;
+    		Main.inMenue = true;
+
+}
+
+}
+
 public void update() {
 		
 		animation();
@@ -132,7 +157,7 @@ public void update() {
 				e.printStackTrace();
 			}
 			}
-			Main.inMenue = true; //zeichne Menü
+			Main.inMenue = false; //zeichne Menü
 		}
 		
 		up.setBounds(p_X+1, p_Y, 30, 1); //oberer Punkt am Spieler (zur Prüfung nach Kollisionen)
@@ -265,7 +290,7 @@ public void update() {
 		}
 		
 		public void die(){
-			
+			total_life = 0;
 		}
 		
 		public void takeDamage(){
@@ -349,7 +374,17 @@ public void update() {
 		public void setLife(int life) {
 			this.life = life;
 		}
-
+		
+		public void settotal_life(int total_life) {
+			this.total_life = total_life;
+			System.out.println("aufgerufen");
+			;
+		}
+		
+		public int gettotal_life() {		//Getter und Setter für Lifund Total_Life hinzugefügt
+			return total_life;
+		}
+		
 		public int getMana() {
 			return mana;
 		}

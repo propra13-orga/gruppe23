@@ -18,7 +18,10 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     private int e_walk_x = 0, e_walk_y = 0;
     public static boolean finished = false;
     public static int checkX, checkY, lastRoomCheck, entryX, entryY;  
-  
+    public static int a;
+    public static int b;
+    public static int q,w;
+    
     ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
     
     public Tiles (int x, int y, String typeInt) {
@@ -71,10 +74,12 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
             tileImage = null;
         }
         else if (type.equals(entry)) {
-        	entryX = tileX;
-        	entryY = tileY;
+        	//entryX = tileX;
+        	//entryY = tileY;
         	Main.player.setP_X(x*40+4);
         	Main.player.setP_Y(y*40+4);
+        	q = Main.player.getP_X();
+        	w = Main.player.getP_Y();
         	Main.enemy.setX(40+(int)(Math.random()*729)); //zufällige Platzierung des Gegners bei Wechsel des Raumes
         	Main.enemy.setY(40+(int)(Math.random()*601));
             tileImage = Main.tileentry;
@@ -174,15 +179,31 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         }
     
     
-    public void checkTrap(Rectangle rect){
+  //Versuch MEthode Checkpoint auszufuhren
+    public void checkpoint (Rectangle rect){
+   	 		a = getTileX();
+   	 		b = getTileY();
+   	 if (rect.intersects(c)  ) {
+   	
+   		 	Main.checkpoint_reached = true;
+   		 	System.out.println("true");}}
+   
+    
+    public void checkTrap(Rectangle rect){ // Wenn in eine Falle gelaufen : total_life-1
         if(rect.intersects(t)){
-        	Main.player.setLife(0);
+        	Main.player.total_life = Main.player.total_life-1;
+        	trapped (rect);
         }
     }
+    public void trapped (Rectangle rect){		//Aufruf von Death()
+    	if (rect.intersects(t) ) {
+    		Main.player.Death();}
+    			
+    		}
     
     public void checkExit(Rectangle rect){
         if(rect.intersects(e)){
-        	
+        	Main.checkpoint_reached = false;
         	switch(Main.room){
         	case 1:       		
         		try {
@@ -287,14 +308,7 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
 				JOptionPane.OK_CANCEL_OPTION); }
 }
 	
-	//Versuch MEthode Checkpoint auszufuhren
-	public void checkCheckpoint (Rectangle rect){
-	    if (rect.intersects(c)){
-	    	Player.lastCheckpointX = checkX; 
-	    	Player.lastCheckpointY = checkY;
-	    	lastRoomCheck = Main.room;
-	    	}
-	    }
+	
     
     
     public void update(){
@@ -340,7 +354,7 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         	checkNcp(Player.r);
         }
     	if (type.equals(checkpoint)){ //Update für Checkpoint
-    		checkCheckpoint (Player.r);
+    		checkpoint (Player.r);
     	}
     	
     	
