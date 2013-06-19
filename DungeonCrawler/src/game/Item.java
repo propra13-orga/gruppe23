@@ -12,7 +12,7 @@ public abstract class Item
 		
 	
 
-	/*
+	
 	// erzeugt eine zufaellige Anzahl an Items und setzt diese an zufaellige Positionen
 	public void startupItems(int x_min, int y_min, int x_max, int y_max)
 	{
@@ -30,7 +30,7 @@ public abstract class Item
 			//positItems(item_posx, item_posy);
 		}
 	
-	}*/
+	}
 	/*
 	public void positItems(int item_posx, int item_posy)
 	{

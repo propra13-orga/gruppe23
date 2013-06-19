@@ -28,7 +28,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	//Spielelemente   // public static Imge ncp, ncp1,checkpoint,story hinzugefügt
 	public static Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost, enemy_monster, lightning, boss1, boss2, boss3, ncp, lightning_claw, shop;
 	public static Image axe, sword, spear, mana_small, mana_big, health_small, health_big, all_small, all_middle;
-	public static Image tilefloor, tilewall, tiletrap, tiletrap2, tileexit, tileentry, tilewall2, tilefloor3, tilewall3, ncp1, checkpoint, story;
+	public static Image tilefloor, tilewall, tiletrap, tiletrap2, tileexit, tileentry, tilewall2, tilefloor3, tilewall3, ncp1, checkpoint, story, geld;
 	public static Player player;
 	public static Enemy enemy;
 	public Animation animation;
@@ -53,6 +53,8 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static boolean animating = false, spell_iceshield = false, inMenue = true, lightningclaw = false;
 	public static boolean ccheckpoint = false;
 	public static boolean checkpoint_reached=false;
+	public static boolean shop_reached = false;
+	public static boolean checkShop = false;
 
 	//inMenue=true: zeichne MenÃ¼; inMenue=false: zeichne Spielraum; spell_iceshield=false/true: Schutzschild aus/an;
 
@@ -130,11 +132,12 @@ public class Main extends Applet implements Runnable, KeyListener{
   		health_small = getImage(base, "gfx/Health_Small");
   		health_big = getImage(base, "gfx/Health_Big");
   		all_small = getImage(base, "gfx/All_Small");
-  		all_middle = getImage(base, "gfx/All_Middle");
+  		all_middle = getImage(base, "gfx/All_Middle.png");
   		ncp1 = getImage(base, "gfx/ncp.gif");
   		story = getImage(base, "gfx/Story.png");
   		checkpoint = getImage (base, "gfx/Checkpoint.png");
   		shop = getImage(base, "gfx/Tile_Shop.png");
+  		geld = getImage(base, "gfx/geld.png");
 
    }
 
@@ -396,7 +399,7 @@ public void keyPressed(KeyEvent e) {
     	break;
     	
     case KeyEvent.VK_1:
-    	shop1.init();
+    	checkShop = true;
     	break;
     }
 	
@@ -439,6 +442,7 @@ public void keyReleased(KeyEvent e) {
     	break;
     	
     case KeyEvent.VK_1:
+    	checkShop = false;
     	break;
 
 

@@ -277,7 +277,9 @@ public void update() {
 		
 		//Automatische Methoden:
 
-		public void attack() {
+		public static void attack() {
+
+			
 
 		}
 		

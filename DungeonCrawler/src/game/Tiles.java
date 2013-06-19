@@ -12,8 +12,8 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     private int tileX, tileY, speedX, speedY;
     private String type;
     public Image tileImage;
-    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S";
-    public static Rectangle r, t, e, n, c, s;
+    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S", muenzen = "M", all_m = "P";
+    public static Rectangle r, t, e, n, c, s, m, p;
     public static int[][] e_walk = new int[19][19];
     private int e_walk_x = 0, e_walk_y = 0;
     public static boolean finished = false;
@@ -21,6 +21,7 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     public static int a;
     public static int b;
     public static int q,w;
+    Shop shop1 = new Shop();
     
     ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
     
@@ -33,6 +34,8 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         n = new Rectangle ();
         c = new Rectangle ();
         s = new Rectangle ();
+        m = new Rectangle();
+        p = new Rectangle();
         	//Neue Rectangles für n und c
         type = typeInt;
         
@@ -95,6 +98,15 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         else if (type.equals(wall3)) {
         	tileImage = Main.tilewall3;
         }
+        
+        else if (type.equals(muenzen)){
+        	tileImage = Main.geld;
+        }
+        
+        else if (type.equals(all_m)){
+        	tileImage = Main.all_middle;
+        }
+        
         else if (type.equals(ncp)) {  // Bild für Ncp eingefügt
         	tileImage = Main.ncp1;
         	
@@ -187,6 +199,15 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
    	
    		 	Main.checkpoint_reached = true;
    		 	System.out.println("true");}}
+    
+    public void shop (Rectangle rect){
+    	a = getTileX();
+    	b = getTileY();
+    if (rect.intersects(s)) {
+    	Main.shop_reached = true;
+    	System.out.println("true");
+    }
+    }
    
     
     public void checkTrap(Rectangle rect){ // Wenn in eine Falle gelaufen : total_life-1
@@ -308,6 +329,31 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
 				JOptionPane.OK_CANCEL_OPTION); }
 }
 	
+    private void checkShop(Rectangle rect) {
+    	if (Main.checkShop == true && rect.intersects(s)) {
+    		shop1.init();
+    		
+    		
+    	}
+		
+	}
+    
+    private void checkmuenzen(Rectangle rect) {
+		if (rect.intersects(m)){
+			Inventory.player_money ++;
+			
+		}
+		
+	}
+    
+	private void checkAll_m(Rectangle rect) {
+		if (rect.intersects(p)){
+			Player.life =+10;
+			Player.mana =+10;
+		}
+		
+	}
+
 	
     
     
@@ -318,6 +364,9 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         n.setBounds(tileX+19, tileY+19, 2, 2);
         c.setBounds(tileX+19, tileY+19, 2, 2);	//Update für NCP und Checkpoint hinzugefügt
         s.setBounds(tileX+19, tileY+19, 2, 2);
+        m.setBounds(tileX+19, tileY+19, 2, 2);
+        p.setBounds(tileX+19, tileY+19, 2, 2);
+        
         
         if (type.equals(wall)){
         	r.setBounds(tileX, tileY, 40, 40);
@@ -357,27 +406,21 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     		checkpoint (Player.r);
     	}
     	
+    	if (type.equals(muenzen)){
+    		checkmuenzen(Player.r);
+    	}
+    	
+    	if (type.equals(all_m)){
+    		checkAll_m(Player.r);
+    	}
+    	
     	
     }
 
-    private void checkShop(Rectangle r2) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
-	//CheckShop hinzugefuegt
-	/*private void checkShop(Rectangle r2) {
-		if (Main.Shop == true && rect.intersects(s)) {
-			Shop.shop();
-		}
-		
-	}*/
-
-
-
-    public int getTileX() {
+	public int getTileX() {
 		return tileX;
 	}
 

@@ -1,11 +1,11 @@
-! # = Wand , leer = Boden, F = Falle, E = Eingang, A = Ausgang, * = Gegnerpfad, N = NCP, C = Checkpoint, S = Shop
+! # = Wand , leer = Boden, F = Falle, E = Eingang, A = Ausgang, * = Gegnerpfad, N = NCP, C = Checkpoint, S = Shop, M = Money, P = All_middle Potion
 !-------MAP---------!
 ++++++++++++++++++++
 +##################+
 +#E    F     #    #+
-+#N#           #  #+
++#N#   M       #  #+
 +# ################+
-+# #              #+
++# #             P#+
 +# #  ##########  #+
 +# #  #      A #  #+
 +# #F #    F   #  #+
