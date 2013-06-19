@@ -10,9 +10,13 @@ public class Potion extends Item
 	public Potion(String name, int health_plus, int mana_plus, int price)
 	{
 		this.name = name;
+		super.name = name;
 		this.health_plus = health_plus;
+		super.health_plus = health_plus;
 		this.mana_plus = mana_plus;
+		super.mana_plus = mana_plus;
 		this.itemprice = price;
+		super.itemprice = price;
 	}
 	
 	public void drinkPotion()

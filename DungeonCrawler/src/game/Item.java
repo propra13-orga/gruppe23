@@ -5,8 +5,9 @@ package game;
 public abstract class Item 
 {
 
-	protected int itemprice;
+	protected int itemprice, damage, defense, health_plus, mana_plus;
 	protected String name;
+	
 	
 		
 	
@@ -61,23 +62,23 @@ public abstract class Item
 		return name;
 	}
 	
-	public int getPrice(Object value)
+	public int getPrice(String value)
 	{
 		
 		for (int i=0; i < Main.itemlist.size(); i++) 
         {
-             if (Main.itemlist.get(i) == value)
+             if (Main.itemlist.get(i).name == value)
              {
-           	  if(i == 0 || i == 1 )
-           	  {	  
-           		  Weapon Price_Weapon = (Weapon) Main.itemlist.get(i);
-           		 this.itemprice = Price_Weapon.itemprice;
-           	  } 
-           	  if(i > 1)
-           	  {
-           		  Potion Price_Potion = (Potion) Main.itemlist.get(i);
-           		  this.itemprice = Price_Potion.itemprice;
-           	  }
+           	  		if(i == 0 || i == 1 )
+           	  		{	  
+           	  			Weapon Price_Weapon = (Weapon) Main.itemlist.get(i);
+           	  			this.itemprice = Price_Weapon.itemprice;
+           	  		} 
+           	  		if(i > 1)
+           	  		{
+           	  			Potion Price_Potion = (Potion) Main.itemlist.get(i);
+           	  			this.itemprice = Price_Potion.itemprice;
+           	  		}
            	  
              }
         }
