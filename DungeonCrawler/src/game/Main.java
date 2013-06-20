@@ -53,8 +53,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static boolean animating = false, spell_iceshield = false, inMenue = true, lightningclaw = false;
 	public static boolean ccheckpoint = false;
 	public static boolean checkpoint_reached=false;
-	public static boolean shop_reached = false;
-	public static boolean checkShop = false;
+
 
 	//inMenue=true: zeichne Menü; inMenue=false: zeichne Spielraum; spell_iceshield=false/true: Schutzschild aus/an;
 
@@ -399,7 +398,6 @@ public void keyPressed(KeyEvent e) {
     	break;
     	
     case KeyEvent.VK_1:
-    	checkShop = true;
     	break;
     }
 	
@@ -441,8 +439,8 @@ public void keyReleased(KeyEvent e) {
     case KeyEvent.VK_I:
     	break;
     	
-    case KeyEvent.VK_1:
-    	checkShop = false;
+    case KeyEvent.VK_E:
+    	Tiles.counterShop = 999;
     	break;
 
 
