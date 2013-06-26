@@ -1,3 +1,9 @@
+/*
+ * @author Brigitta Wanner
+ * 
+ * Klasse fuer die Items
+ * 
+ */
 package game;
 
 

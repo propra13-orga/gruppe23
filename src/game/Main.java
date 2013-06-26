@@ -140,6 +140,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 
    }
 
+  /*
+   * @author Brigitta Wanner
+   */
    public void itemInit()
    {
 	   Weapon Axe = new Weapon("Axt",5, 2, 10);
@@ -348,7 +351,12 @@ public class Main extends Applet implements Runnable, KeyListener{
 		}
 	}
 	
+	/*
+	 * @author ...,... and Brigitta Wanner
+	 */
+	
 	//Steuerung:		//Keypressed für VK_S hinzugefügt
+	
 
 @Override
 public void keyPressed(KeyEvent e) {
@@ -403,6 +411,10 @@ public void keyPressed(KeyEvent e) {
 	
 }
 
+
+/*
+ * @author ...,... and Brigitta Wanner
+ */
  //Keyreleased für VK_S hinzugefügt
 
 @Override

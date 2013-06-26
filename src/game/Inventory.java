@@ -1,3 +1,9 @@
+/*
+ * @author Brigitta Wanner
+ * 
+ * Klasse die das Inventar beschreibt
+ * 
+ */
 package game;
 
 import javax.swing.*;
@@ -7,9 +13,7 @@ import java.awt.event.*;
 
 public class Inventory extends JFrame implements ActionListener
 {
-     /**
-	 * 
-	 */
+     
 	private static final long serialVersionUID = 1L;
 
 	

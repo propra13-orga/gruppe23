@@ -1,3 +1,7 @@
+/*
+ * @author Brigitta Wanner
+ */
+
 package game;
 
 import javax.swing.*;
