@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
-public class Tiles {		//public string floor für NCP und Checkpoint; public static rectangle n, c
-	
+/*
+ * @author ... and Maike Fox
+ */
+public class Tiles {		
     private int tileX, tileY, speedX, speedY;
     private String type;
     public Image tileImage;
@@ -26,6 +27,9 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     
     ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
     
+    /*
+     * @author ... , Maike Fox
+     */
     public Tiles (int x, int y, String typeInt) {
         tileX = x * 40;
         tileY = y * 40;
@@ -35,7 +39,7 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         n = new Rectangle ();
         c = new Rectangle ();
         s = new Rectangle ();
-        	//Neue Rectangles für n und c
+        	
         type = typeInt;
         
 
@@ -183,7 +187,9 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         }
     
     
-  //Versuch MEthode Checkpoint auszufuhren
+    /*
+     * @author Maike Fox
+     */
     public void checkpoint (Rectangle rect){
    	 		a = getTileX();
    	 		b = getTileY();
@@ -209,13 +215,19 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
     
     }
    
-    
+    /*
+     * @author Maike Fox
+     */
     public void checkTrap(Rectangle rect){ // Wenn in eine Falle gelaufen : total_life-1
         if(rect.intersects(t)){
         	Main.player.total_life = Main.player.total_life-1;
         	trapped (rect);
         }
     }
+    
+    /*
+     * @author Maike Fox
+     */
     public void trapped (Rectangle rect){		//Aufruf von Death()
     	if (rect.intersects(t) ) {
     		Main.player.Death();}
@@ -303,13 +315,18 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
         }
     }
     
-    //CheckNcp hinzugefuegt
+    /*
+     * @author Maike Fox
+     */
     
     private void checkNcp(Rectangle rect) {
 		if (Main.ccheckpoint == true && rect.intersects(c)) {
 			story();
 			}
 		}
+    /*
+     * @author Maike Fox
+     */
 	public static void story () {
 		Main.ccheckpoint = false;
 		if (Main.level == 1){
@@ -334,7 +351,9 @@ public class Tiles {		//public string floor für NCP und Checkpoint; public stati
 
 
 	
-    
+	 /*
+     * @author ..., Maike Fox
+     */
     
     public void update(){
   	  

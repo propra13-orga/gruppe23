@@ -5,7 +5,9 @@ import java.awt.event.MouseListener;
 public class Mouse implements MouseListener {
 	
 	//Mausposition wird abgefragt
-
+	/*
+	   * @author ... and Maike Fox
+	   */
 	@Override
 	public void mouseClicked(MouseEvent m) {
 		if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 200) && (m.getY() < 350)){

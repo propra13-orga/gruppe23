@@ -352,10 +352,10 @@ public class Main extends Applet implements Runnable, KeyListener{
 	}
 	
 	/*
-	 * @author ...,... and Brigitta Wanner
+	 * @author ...,Maike Fox and Brigitta Wanner
 	 */
 	
-	//Steuerung:		//Keypressed für VK_S hinzugefügt
+	//Steuerung:		
 	
 
 @Override
@@ -413,9 +413,9 @@ public void keyPressed(KeyEvent e) {
 
 
 /*
- * @author ...,... and Brigitta Wanner
+ * @author ...,Maike Fox and Brigitta Wanner
  */
- //Keyreleased für VK_S hinzugefügt
+
 
 @Override
 public void keyReleased(KeyEvent e) {

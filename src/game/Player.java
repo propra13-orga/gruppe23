@@ -31,7 +31,9 @@ public class Player {
 	public static int defense;
 	
 	//Eigenschaften des Players:
-    
+	/*
+	   * @author ... and Maike Fox
+	   */
     public Player (int x, int y){
 		
 		p_X = x;
@@ -42,6 +44,10 @@ public class Player {
 		mana = 100; //setze Mana auf 100
 		total_life = 3; // 3 Leben eingerichtet
 	}
+    
+    /*
+     * @author Maike Fox
+     */
     public void Death(){ 
 		// Wenn 3 Mal Gestorben zurück ins Menü
     	if (total_life > 0) {
