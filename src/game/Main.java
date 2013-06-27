@@ -26,7 +26,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static Sound sound;
 	
 	//Spielelemente   // public static Imge ncp, ncp1,checkpoint,story hinzugefügt
-	public static Image image, character, health_empty, health_full, mana_full, mana_empty,enemy_ghost, enemy_monster, lightning, boss1, boss2, boss3, ncp, lightning_claw, shop;
+	public static Image image, character, health_empty, health_full, heart, mana_full, mana_empty,enemy_ghost, enemy_monster, lightning, boss1, boss2, boss3, ncp, lightning_claw, shop;
 	public static Image axe, sword, spear, mana_small, mana_big, health_small, health_big, all_small, all_middle;
 	public static Image tilefloor, tilewall, tiletrap, tiletrap2, tileexit, tileentry, tilewall2, tilefloor3, tilewall3, ncp1, checkpoint, story, geld;
 	public static Player player;
@@ -60,7 +60,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public String playerName;
 	private Tiles t;
 	
-	
+	/*
+	Author: Martha Tatusch
+	 */
 
    @Override
    public void init() {
@@ -137,6 +139,7 @@ public class Main extends Applet implements Runnable, KeyListener{
   		checkpoint = getImage (base, "gfx/Checkpoint.png");
   		shop = getImage(base, "gfx/Tile_Shop.png");
   		geld = getImage(base, "gfx/geld.png");
+  		heart = getImage(base, "gfx/Heart.png");
 
    }
 
@@ -162,7 +165,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   invent.inventory.add(1, Main.itemlist.get(5));
 	   
    }
-
+/*
+ * Author: Martha Tatusch
+ */
    
    @Override
    public void start() 
@@ -196,6 +201,9 @@ public class Main extends Applet implements Runnable, KeyListener{
        
    }
 	
+   /*
+    * Author: Martha Tatusch
+    */
 
 	//Buffer für Bilder
 	@Override
@@ -224,6 +232,10 @@ public class Main extends Applet implements Runnable, KeyListener{
    public void destroy() {
    // TODO Auto-generated method stub
    }
+   
+   /*
+    * Author: Martha Tatusch
+    */
 
    @Override
    public void run() 
@@ -271,6 +283,9 @@ public class Main extends Applet implements Runnable, KeyListener{
       }
    }
 	
+   /*
+    * Author: Martha Tatusch
+    */
    
    @Override
    public void paint(Graphics g)
@@ -329,6 +344,10 @@ public class Main extends Applet implements Runnable, KeyListener{
    
 }
    
+   /*
+    * Author: Martha Tatusch
+    */
+   
    private void updateTiles()
    {
 	   for (int i = 0; i < map.getTilearray().size(); i++) 
@@ -340,6 +359,10 @@ public class Main extends Applet implements Runnable, KeyListener{
 
 	   }
    }
+   
+   /*
+    * Author: Martha Tatusch
+    */
 	
 	
 	private void paintTiles(Graphics g) 

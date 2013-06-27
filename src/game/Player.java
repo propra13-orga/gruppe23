@@ -32,7 +32,7 @@ public class Player {
 	
 	//Eigenschaften des Players:
 	/*
-	   * @author ... and Maike Fox
+	   * @author Martha Tatusch and Maike Fox
 	   */
     public Player (int x, int y){
 		
@@ -72,6 +72,9 @@ public class Player {
 }
 
 }
+    /*
+     * Author: Martha Tatusch
+     */
 
 public void update() {
 		
@@ -177,12 +180,18 @@ public void update() {
 
 	}
 	
+/*
+ * Author: Martha Tatusch
+ */
 	public void draw(Graphics g){
 		
 		   g.drawImage(Main.character, p_X, p_Y, p_X+32, p_Y+32, 32*frame, direction, 32*frame + 32, 32+direction, null); //zeichnet Spieler
 
 	}
 	
+	/*
+	 * Author: Martha Tatusch
+	 */
 	public void animation(){
 	if(System.currentTimeMillis() - lastFrame > frameTimer){	
   	  if(animating == true){
@@ -195,7 +204,7 @@ public void update() {
 	  }
 	}
 	
-	//Methoden zur Steuerung:
+	//Methoden zur Steuerung: (Martha Tatusch)
 
 		public void moveRight() {
 		animating = true;
@@ -225,7 +234,10 @@ public void update() {
 		p_SpeedX = 0;
 		}
 		
-		   //stoppen des Spielers; Abfrage, ob nach Loslassen einer Richtungstaste noch eine weitere Richtungstastee gedrückt ist. Wenn ja, laufe in die gegebene Richtung
+		/*
+		 * Author: Martha Tatusch   
+		 */
+		//stoppen des Spielers; Abfrage, ob nach Loslassen einer Richtungstaste noch eine weitere Richtungstastee gedrückt ist. Wenn ja, laufe in die gegebene Richtung
 
 		public void stop() {
 	        if (isMovingRight() == false && isMovingLeft() == false) {
@@ -253,6 +265,10 @@ public void update() {
 	        }
 
 		}
+		
+		/*
+		 * Author: Martha Tatusch
+		 */
 		
 		//Methoden zum Anhalten des Spielers; werden ausgeführt bei Loslassen der Richtungstasten
 		

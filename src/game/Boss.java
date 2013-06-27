@@ -1,3 +1,8 @@
+/*
+ * Author: Martha Tatusch
+ *
+ */
+
 package game;
 
 import java.awt.Rectangle;
@@ -28,7 +33,6 @@ public class Boss {
 		
 	      	
 	}
-	
 	
 	
 	public void update(){

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 /*
- * @author ... and Maike Fox
+ * @author Martha Tatusch and Maike Fox
  */
 public class Tiles {		
     private int tileX, tileY, speedX, speedY;
@@ -28,7 +28,7 @@ public class Tiles {
     ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
     
     /*
-     * @author ... , Maike Fox
+     * @author Martha Tatusch, Maike Fox
      */
     public Tiles (int x, int y, String typeInt) {
         tileX = x * 40;
@@ -163,7 +163,9 @@ public class Tiles {
 
     }
     
-
+/*
+ * Author: Martha Tatusch
+ */
     
     public void checkCollision(Rectangle up , Rectangle right, Rectangle down, Rectangle left){
         if (up.intersects(r)){
@@ -233,6 +235,10 @@ public class Tiles {
     		Main.player.Death();}
     			
     		}
+    
+    /*
+     * Author: Martha Tatusch
+     */
     
     public void checkExit(Rectangle rect){
         if(rect.intersects(e)){
@@ -352,7 +358,7 @@ public class Tiles {
 
 	
 	 /*
-     * @author ..., Maike Fox
+     * @author Martha Tatusch, Maike Fox
      */
     
     public void update(){
@@ -406,7 +412,7 @@ public class Tiles {
     	
     }
 
-
+// Getters und Setters:
 
 
 	public int getTileX() {

@@ -1,3 +1,7 @@
+/*
+ * Author: Martha Tatusch
+ */
+
 package game;
 
 import java.awt.Image;
@@ -13,6 +17,7 @@ public class Animation {
 	
 public Animation (){
 }
+
 
 public void play(){
 	

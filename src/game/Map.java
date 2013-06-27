@@ -1,3 +1,7 @@
+/*
+ * Author: Martha Tatusch
+ */
+
 package game;
 
 import java.awt.Graphics;
