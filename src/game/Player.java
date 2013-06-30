@@ -40,9 +40,9 @@ public class Player {
 		p_Y = y;
 		p_SpeedX = 0; //Geschwindigkeit in X-Richtung
 		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
-		life = 100; //setze Leben auf 100
-		mana = 100; //setze Mana auf 100
-		total_life = 3; // 3 Leben eingerichtet
+		life = Integer.parseInt((String) Save.attributes.get(1)); //setze Leben auf 100
+		mana = Integer.parseInt((String) Save.attributes.get(2)); //setze Mana auf 100
+		total_life = Integer.parseInt((String) Save.attributes.get(0)); // 3 Leben eingerichtet
 	}
     
     /*
@@ -65,8 +65,16 @@ public class Player {
 }
 
     	else {
+    		p_X = 84;
+    		p_Y = 84;
     		Main.level = 1;
     		Main.room = 1;
+			try {
+			Main.map.loadMap("maps/map1.txt"); //lade Karte 1
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     		Main.inMenue = true;
 
 }
@@ -85,87 +93,87 @@ public void update() {
 			Main.boss.setLife(100); //setze Leben des Bossgegners = 100
 			Main.room = Tiles.lastRoomCheck;
 			
-			if(Main.room == 1){	
-			try {
-				Main.map.loadMap("maps/map1.txt"); //lade Karte 1
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 2){	
-			try {
-				Main.map.loadMap("maps/map2.txt"); //lade Karte 2
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 3){	
-			try {
-				Main.map.loadMap("maps/map3.txt"); //lade Karte 3
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 4){	
-			try {
-				Main.map.loadMap("maps/map4.txt"); //lade Karte 4
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 5){	
-			try {
-				Main.map.loadMap("maps/map5.txt"); //lade Karte 5
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 6){	
-			try {
-				Main.map.loadMap("maps/map6.txt"); //lade Karte 6
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			
-			if(Main.room == 7){	
-			try {
-				Main.map.loadMap("maps/map7.txt"); //lade Karte 7
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 8){	
-			try {
-				Main.map.loadMap("maps/map8.txt"); //lade Karte 8
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			
-			if(Main.room == 9){	
-			try {
-				Main.map.loadMap("maps/map9.txt"); //lade Karte 9
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
+//			if(Main.room == 1){	
+//			try {
+//				Main.map.loadMap("maps/map1.txt"); //lade Karte 1
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 2){	
+//			try {
+//				Main.map.loadMap("maps/map2.txt"); //lade Karte 2
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 3){	
+//			try {
+//				Main.map.loadMap("maps/map3.txt"); //lade Karte 3
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 4){	
+//			try {
+//				Main.map.loadMap("maps/map4.txt"); //lade Karte 4
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 5){	
+//			try {
+//				Main.map.loadMap("maps/map5.txt"); //lade Karte 5
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 6){	
+//			try {
+//				Main.map.loadMap("maps/map6.txt"); //lade Karte 6
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			
+//			if(Main.room == 7){	
+//			try {
+//				Main.map.loadMap("maps/map7.txt"); //lade Karte 7
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 8){	
+//			try {
+//				Main.map.loadMap("maps/map8.txt"); //lade Karte 8
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//			if(Main.room == 9){	
+//			try {
+//				Main.map.loadMap("maps/map9.txt"); //lade Karte 9
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			}
 			Main.inMenue = false; //zeichne Menü
 		}
 		

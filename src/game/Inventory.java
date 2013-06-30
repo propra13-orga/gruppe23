@@ -46,6 +46,7 @@ public class Inventory extends JFrame implements ActionListener
             		  equip = i;
             		  Equipped.setVisible(true);
             		  Equipped.setText("Weapon "+ Main.itemlist.get(i).name+ " is equipped");
+            		  Main.sound.play("sound/sword.wav");
             		 
             	  } 
             	  if(i > 1)
@@ -62,6 +63,7 @@ public class Inventory extends JFrame implements ActionListener
        		 		  ItemHeal.setVisible(false);
        		 		  ItemMana.setVisible(false);
        		 		  Equipped.setVisible(false);
+       		 		  Main.sound.play("sound/bottle.wav");
             	  }
               }
          }

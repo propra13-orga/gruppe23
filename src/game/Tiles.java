@@ -218,11 +218,12 @@ public class Tiles {
     }
    
     /*
-     * @author Maike Fox
+     * @author Martha Tatusch und Maike Fox
      */
     public void checkTrap(Rectangle rect){ // Wenn in eine Falle gelaufen : total_life-1
         if(rect.intersects(t)){
         	Main.player.total_life = Main.player.total_life-1;
+        	Main.sound.play("sound/trap.wav");
         	trapped (rect);
         }
     }

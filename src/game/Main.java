@@ -39,6 +39,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public Menue menu;
 	public static Boss boss;
 	public static Frame fenster;
+	public static long lastMusic = System.currentTimeMillis(), soundInterval = 31767;
 
 	private int damage;
 	//public static Item item;
@@ -75,21 +76,21 @@ public class Main extends Applet implements Runnable, KeyListener{
 	      fenster = (Frame) this.getParent().getParent(); 
 	      fenster.setTitle("Rotkäppchen 2.0"); //Fenster-Titel
 	     
-	      TimerTask action = new TimerTask() { //Timertask, der den Sound abspielt
-	    	  	            public void run() {
-	    
-	    	  	            	sound.play("sound/bg_music.wav");
-	    	  	            	
-	    	             }
-	    	  	            
-	     
-	    	  	 
-	    	  	        };
-	    	  	        
-	    	  	        
-	    	  	 
-	    	  	        Timer caretaker = new Timer(); //neuen Timer erstellen
-	    	  	        caretaker.schedule(action, 0, 31767); //Timertask alle 31,767 Sekunden ausführen
+//	      TimerTask action = new TimerTask() { //Timertask, der den Sound abspielt
+//	    	  	            public void run() {
+//	    
+//	    	  	            	sound.play("sound/bg_music.wav");
+//	    	  	            	
+//	    	             }
+//	    	  	            
+//	     
+//	    	  	 
+//	    	  	        };
+//	    	  	        
+//	    	  	        
+//	    	  	 
+//	    	  	        Timer caretaker = new Timer(); //neuen Timer erstellen
+//	    	  	        caretaker.schedule(action, 0, 31767); //Timertask alle 31,767 Sekunden ausführen
 	      
 	  	try 
 	  	{
@@ -172,6 +173,12 @@ public class Main extends Applet implements Runnable, KeyListener{
    @Override
    public void start() 
    {
+	   try {
+		Save.load();
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	   room = 1 ;
 	   level = 1;
 	   player = new Player(400 ,400);
@@ -185,6 +192,13 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   menu = new Menue();
 	   inMenue = true;
 	   enemy = new Enemy(0, 0, 10);
+	   
+	   try {
+		Save.save();
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	   
 	   
 	   Thread thread = new Thread(this);
@@ -240,8 +254,15 @@ public class Main extends Applet implements Runnable, KeyListener{
    @Override
    public void run() 
    {
-      while (true) 
-      {   	  
+	  while(true){
+		  
+      while (!inMenue) 
+      {   
+    	  if(System.currentTimeMillis() - lastMusic > soundInterval){
+    		  sound.play("sound/bg_music.wav");
+    		  lastMusic = System.currentTimeMillis();
+    	  }
+    	  
     	  updateTiles();
     	  if(lightningclaw == true) animation.play();
     	  if(spell_iceshield == true) animation.play();
@@ -281,6 +302,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	            e.printStackTrace();
 	    	  	}
       }
+	  }
    }
 	
    /*
@@ -321,6 +343,10 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   }
 	   if(room == 9){
 		   g.drawImage(boss3, boss.getX(), boss.getY(), boss.getX()+32, boss.getY()+32, 32*(int)boss.getFrame(), boss.getDirection(), 32*(int)boss.getFrame() + 32, 32+boss.getDirection(), this);
+	   }
+	   
+	   for(int i =1; i <= player.total_life; i++){
+		   g.drawImage(heart, 180 + i*34, 730, this);
 	   }
 	   
 	   // zeichnet Bossschuesse

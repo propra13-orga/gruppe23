@@ -468,6 +468,7 @@ public class Shop extends JFrame implements ActionListener
 			 	 ItemDefenseSell.setVisible(false);
 			 	 ItemHealSell.setVisible(false);
 			 	 ItemManaSell.setVisible(false);	
+			 	 Main.sound.play("sound/pickUpGold.wav");
 			}
 		}
 	}
