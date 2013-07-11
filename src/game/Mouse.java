@@ -2,15 +2,16 @@ package game;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 public class Mouse implements MouseListener {
 	
 	//Mausposition wird abgefragt
 	/*
-	   * @author ... and Maike Fox
+	   * @author Martha Tatusch and Maike Fox
 	   */
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 200) && (m.getY() < 350)){
+		if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 200) && (m.getY() < 350) && Main.inMenue){
 			Main.player.setP_X(84);
 			Main.player.setP_Y(84);
 			Main.player.setLife(100);
@@ -24,18 +25,35 @@ public class Mouse implements MouseListener {
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
 		
-		else if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 0) && (m.getY() < 150)){
-			Main.player.setP_X(84);
-			Main.player.setP_Y(84);
-			Main.player.setLife(Integer.parseInt((String) Save.attributes.get(1)));
-			Main.player.settotal_life(Integer.parseInt((String) Save.attributes.get(0)));
-			Main.player.setMana(Integer.parseInt((String) Save.attributes.get(2)));
+		else if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 0) && (m.getY() < 150) && Main.inMenue){
+//			Main.player.setP_X(84);
+//			Main.player.setP_Y(84);
+//			Main.player.setLife(Integer.parseInt((String) Save.attributes.get(1)));
+//			Main.player.settotal_life(Integer.parseInt((String) Save.attributes.get(0)));
+//			Main.player.setMana(Integer.parseInt((String) Save.attributes.get(2)));
 			Main.checkpoint_reached=false;
 			Main.lastMusic = 32000;
+			
+			try {
+				Save.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		       try 
+		       {
+		           Main.map.loadMap("maps/map"+ Main.room + ".txt"); //Karte laden
+		       } 
+		       catch (IOException e) 
+		       {
+		           e.printStackTrace(); 
+		       }
+			
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
-		else if ((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550)) System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
+		else if ((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550) && Main.inMenue) System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
 		
 	}
 

@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Player {
 
 	public int p_X, p_Y, p_SpeedX, p_SpeedY;
-	public int total_life;
+	public static int total_life;
 	public static int life;
 	public static int mana;
 	public int damage = 0;
@@ -40,9 +40,9 @@ public class Player {
 		p_Y = y;
 		p_SpeedX = 0; //Geschwindigkeit in X-Richtung
 		p_SpeedY = 0; //Geschwindigkeit in Y-Richtung
-		life = Integer.parseInt((String) Save.attributes.get(1)); //setze Leben auf 100
-		mana = Integer.parseInt((String) Save.attributes.get(2)); //setze Mana auf 100
-		total_life = Integer.parseInt((String) Save.attributes.get(0)); // 3 Leben eingerichtet
+		life = 100; //setze Leben auf 100
+		mana = 100; //setze Mana auf 100
+		total_life = 3; // 3 Leben eingerichtet
 	}
     
     /*

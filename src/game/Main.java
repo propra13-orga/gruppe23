@@ -7,16 +7,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-import javax.swing.JPanel;
 
 public class Main extends Applet implements Runnable, KeyListener{
 
@@ -42,7 +35,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static Frame fenster;
 	public static long lastMusic = System.currentTimeMillis(), soundInterval = 31767;
 
-	private int damage;
+	//private int damage;
 	//public static Item item;
 	public static Player mana;
 
@@ -175,17 +168,13 @@ public class Main extends Applet implements Runnable, KeyListener{
    @Override
    public void start() 
    {
-	   try {
-		Save.load();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+	   
+
 	   room = 1 ;
 	   level = 1;
 	   player = new Player(400 ,400);
 	   map = new Map();
-	   boss = new Boss(0,0,20,100);
+	   boss = new Boss(0,0,5,100);
 	   sound = new Sound();
 	   sound2 = new Sound();
 	   animation = new Animation();
@@ -197,25 +186,18 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   inMenue = true;
 	   enemy = new Enemy(0, 0, 10);
 	   
-	   try {
-		Save.save();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	   
 	   
 	   Thread thread = new Thread(this);
 	   thread.start();
 	   
-       try 
-       {
-           map.loadMap("maps/map1.txt"); //Karte laden
-       } 
-       catch (IOException e) 
-       {
-           e.printStackTrace(); 
-       }
+//       try 
+//       {
+//           map.loadMap("maps/map"+ room + ".txt"); //Karte laden
+//       } 
+//       catch (IOException e) 
+//       {
+//           e.printStackTrace(); 
+//       }
        
    }
 	

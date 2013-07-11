@@ -192,13 +192,15 @@ public class Tiles {
     /*
      * @author Maike Fox
      */
-    public void checkpoint (Rectangle rect){
+    public void checkpoint (Rectangle rect) throws IOException{
    	 		a = getTileX();
    	 		b = getTileY();
    	 if (rect.intersects(c)  ) {
-   	
+   		 	Player.lastCheckpointX = a;
+   		 	Player.lastCheckpointY = b;
    		 	Main.checkpoint_reached = true;
-   		 	System.out.println("true");}}
+   		 	System.out.println("true");
+   		 	Save.save();}}
     
     public void checkShop(Rectangle rect) {
     	if (rect.intersects(s)) 
@@ -406,7 +408,12 @@ public class Tiles {
         	checkNcp(Player.r);
         }
     	if (type.equals(checkpoint)){ //Update für Checkpoint
-    		checkpoint (Player.r);
+    		try {
+				checkpoint (Player.r);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
   
     	
