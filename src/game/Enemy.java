@@ -15,7 +15,7 @@ public class Enemy {
 	public static int[] x_follow;
 	public static int[] y_follow;
 	
-	//Eigenschaften des Feindes:
+	// Eigenschaften des Feindes:
 	
 	public Enemy (int x, int y, int damage){
 
