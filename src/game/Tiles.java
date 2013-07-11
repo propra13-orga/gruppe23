@@ -198,9 +198,9 @@ public class Tiles {
    	 if (rect.intersects(c)  ) {
    		 	Player.lastCheckpointX = a;
    		 	Player.lastCheckpointY = b;
-   		 	Main.checkpoint_reached = true;
-   		 	System.out.println("true");
-   		 	Save.save();}}
+   		 	Main.checkpoint_reached = true;}}
+//   		 	System.out.println("true");
+//   		 	Save.save();}}
     
     public void checkShop(Rectangle rect) {
     	if (rect.intersects(s)) 

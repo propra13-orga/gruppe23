@@ -190,14 +190,14 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   Thread thread = new Thread(this);
 	   thread.start();
 	   
-//       try 
-//       {
-//           map.loadMap("maps/map"+ room + ".txt"); //Karte laden
-//       } 
-//       catch (IOException e) 
-//       {
-//           e.printStackTrace(); 
-//       }
+       try 
+       {
+           map.loadMap("maps/map"+ room + ".txt"); //Karte laden
+       } 
+       catch (IOException e) 
+       {
+           e.printStackTrace(); 
+       }
        
    }
 	
