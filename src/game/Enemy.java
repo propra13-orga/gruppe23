@@ -65,7 +65,7 @@ else if(y == Main.player.getP_Y()) xAligned = false;
 	
 	public void checkCollision(Rectangle r){ //Abfrage nach Kollision
 		if(r.intersects(this.r)){
-			if (!Main.spell_iceshield) Main.player.setLife(Main.player.getLife()-damage); //ziehe Leben des Spielers ab
+			if (!Main.spell_iceshield && !Main.lightningclaw) Main.player.setLife(Main.player.getLife()-damage); //ziehe Leben des Spielers ab
 			x = (40+(int)(Math.random()*729)); //setzte Gegner auf zufällige X-Koordinate des Spielfelds
 			y = (40+(int)(Math.random()*601)); //setzte Gegner auf zufällige Y-Koordinate des Spielfelds
 			Main.sound.play("sound/wallHit.wav");

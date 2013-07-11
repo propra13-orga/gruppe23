@@ -12,7 +12,6 @@ public class Animation {
 	private int line = 0, row;
 	private long castTimer = 4000, lastCast = System.currentTimeMillis(), lastFrame = System.currentTimeMillis(), frameTimer = 100;
 	private int frame = 0, frameCount, frameadd = 1; // frameadd = abstrakte Animiergeschwindigkeit
-	public static boolean casted = false;
 
 	
 public Animation (){

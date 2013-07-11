@@ -153,28 +153,77 @@ public class Boss {
 			if(Main.spell_iceshield)Main.player.setLife(Main.player.getLife()-(damage-10));
 			else Main.player.setLife(Main.player.getLife()-damage);//ziehe Leben des Spielers ab
 			Main.player.setP_Y(Main.player.getP_Y() - 20); //setze Spieler etwas weiter von Gegner weg (damit nicht unaufhörlich Leben abgezogen wird)
-			this.life-=100; //vorläufig: ziehe gesamtes Leben des Bossgegners ab
+//			this.life -= 100;
+			if (Main.room == 3 && Main.axe_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.axe_act = false;
+			}
+			else if (Main.room == 6 && Main.sword_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.sword_act = false;
+			}
+			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+				this.life -= 15; 
+				Main.spear_act = false;
+			}
+			
 			
 		}
 		else if(rr.intersects(this.r)){
-			if(Animation.casted)Main.player.setLife(Main.player.getLife()-(damage-10));
+			if(Main.lightningclaw)Main.player.setLife(Main.player.getLife()-(damage-10));
 			else Main.player.setLife(Main.player.getLife()-damage); //ziehe Leben des Spielers ab
 			Main.player.setP_X(Main.player.getP_X() - 20); //setze Spieler etwas weiter von Gegner weg (damit nicht unaufhörlich Leben abgezogen wird)
-			this.life-=100; //vorläufig: ziehe gesamtes Leben des Bossgegners ab
+//			this.life -= 100;
+			if (Main.room == 3 && Main.axe_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.axe_act = false;
+			}
+			else if (Main.room == 6 && Main.sword_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.sword_act = false;
+			}
+			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+				this.life -= 15; 
+				Main.spear_act = false;
+			}
 		}
 		
 		else if(rd.intersects(this.r)){
-			if(Animation.casted)Main.player.setLife(Main.player.getLife()-(damage-10));
+			if(Main.lightningclaw)Main.player.setLife(Main.player.getLife()-(damage-10));
 			else Main.player.setLife(Main.player.getLife()-damage); //ziehe Leben des Spielers ab
 			Main.player.setP_Y(Main.player.getP_Y() + 20); //setze Spieler etwas weiter von Gegner weg (damit nicht unaufhörlich Leben abgezogen wird)
-			this.life-=100; //vorläufig: ziehe gesamtes Leben des Bossgegners ab
+//			this.life -= 100;
+			if (Main.room == 3 && Main.axe_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.axe_act = false;
+			}
+			else if (Main.room == 6 && Main.sword_act && this.life >= 0){ 
+				this.life -= 20; 
+				Main.sword_act = false;
+			}
+			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+				this.life -= 15; 
+				Main.spear_act = false;
+			}
 		}
 		
 		else if(rl.intersects(this.r)){
-			if(Animation.casted)Main.player.setLife(Main.player.getLife()-(damage-10));
+			if(Main.lightningclaw)Main.player.setLife(Main.player.getLife()-(damage-10));
 			else Main.player.setLife(Main.player.getLife()-damage);//ziehe Leben des Spielers ab
 			Main.player.setP_X(Main.player.getP_X() + 20); //setze Spieler etwas weiter von Gegner weg (damit nicht unaufhörlich Leben abgezogen wird)
-			this.life-=100; //vorläufig: ziehe gesamtes Leben des Bossgegners ab
+//			this.life -= 100;
+		if (Main.room == 3 && Main.axe_act && this.life >= 0){ 
+			this.life -= 20; 
+			Main.axe_act = false;
+		}
+		else if (Main.room == 6 && Main.sword_act && this.life >= 0){ 
+			this.life -= 20; 
+			Main.sword_act = false;
+		}
+		else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+			this.life -= 15; 
+			Main.spear_act = false;
+		}
 		}
 	}
 	

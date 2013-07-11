@@ -32,7 +32,7 @@ public class Save {
 //		attributes.add(Main.room);
 //		attributes.add(Main.player.lastCheckpointX);
 //		attributes.add(Main.player.lastCheckpointY);
-		File savegame = new File("maps/save1.txt");
+		File savegame = new File("maps/save2.txt");
 		FileWriter saveWrite = new FileWriter(savegame, true);
 		
 		saveWrite.write("Test");

@@ -23,7 +23,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	private URL base;
 	private Graphics second;
 	public static Map map;
-	public static Sound sound;
+	public static Sound sound, sound2;
 	
 	//Spielelemente   // public static Imge ncp, ncp1,checkpoint,story hinzugefügt
 	public static Image image, character, health_empty, health_full, heart, mana_full, mana_empty,enemy_ghost, enemy_monster, lightning, boss1, boss2, boss3, ncp, lightning_claw, shop;
@@ -32,6 +32,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static Player player;
 	public static Enemy enemy;
 	public Animation animation;
+	public Claw claw;
 	public Inventory invent;
 	public static ArrayList<Item> itemlist = new ArrayList<Item>();
 	public static Item item;
@@ -52,8 +53,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static int room, level;
 	public static int direction;
 	public static boolean animating = false, spell_iceshield = false, inMenue = true, lightningclaw = false;
-	public static boolean ccheckpoint = false;
-	public static boolean checkpoint_reached=false;
+	public static boolean ccheckpoint = false, checkpoint_reached = false;
+	public static boolean sword_act = false, spear_act = false, axe_act = false;
+	public static int i = 1;
 
 
 	//inMenue=true: zeichne MenÃ¼; inMenue=false: zeichne Spielraum; spell_iceshield=false/true: Schutzschild aus/an;
@@ -185,7 +187,9 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   map = new Map();
 	   boss = new Boss(0,0,20,100);
 	   sound = new Sound();
+	   sound2 = new Sound();
 	   animation = new Animation();
+	   claw = new Claw();
 	   invent = new Inventory();
 	   itemInit();
 	   shop1 = new Shop();
@@ -264,11 +268,11 @@ public class Main extends Applet implements Runnable, KeyListener{
     	  }
     	  
     	  updateTiles();
-    	  if(lightningclaw == true) animation.play();
-    	  if(spell_iceshield == true) animation.play();
+    	  if(lightningclaw == true) claw.play();
+       	  if(spell_iceshield == true) animation.play();
     	 
     	  player.update(); //Spieler wird aktualisiert
-    		if(room != 9){
+    		if(room != 9 && lightningclaw == false){
   		  enemy.update();  //gegner wird aktualisiert   		  
     		}
     	  
@@ -365,7 +369,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   
 	   //zeichnet Blitzmagie:
 	   if(lightningclaw == true){
-		   g.drawImage(lightning_claw, enemy.getX()-42, enemy.getY()-42, enemy.getX()+86,enemy.getY()+86, animation.getRow(), animation.getLine(), animation.getRow()+128, animation.getLine()+127, this); 
+		   g.drawImage(lightning_claw, enemy.getX()-42, enemy.getY()-42, enemy.getX()+86,enemy.getY()+86, claw.getRow(), claw.getLine(), claw.getRow()+128, claw.getLine()+128, this); 
    }
    
 }
@@ -434,15 +438,20 @@ public void keyPressed(KeyEvent e) {
         break;
 
     case KeyEvent.VK_SPACE:
-    	animation.setLastCast(System.currentTimeMillis());
-    	animation.setLastFrame(System.currentTimeMillis());
-    	if (player.getMana() >= 15) spell_iceshield = true;
+    	if (player.getMana() >= 15 && !spell_iceshield){
+    		animation.setLastCast(System.currentTimeMillis());
+    		animation.setLastFrame(System.currentTimeMillis());
+    		spell_iceshield = true;
+    	}
         break;
  
     case KeyEvent.VK_A:
-    	animation.setLastCast(System.currentTimeMillis());
-    	animation.setLastFrame(System.currentTimeMillis());
-    	if (player.getMana() >= 15 ) lightningclaw = true;
+    	if (player.getMana() >= 15 && !lightningclaw ){
+    		claw.setLastC(System.currentTimeMillis());
+    		claw.setLastF(System.currentTimeMillis());
+    		lightningclaw = true;
+    		sound.play("sound/lightningclaw.wav");
+    	}
     	break;
 
     	
@@ -455,6 +464,24 @@ public void keyPressed(KeyEvent e) {
     	break;
     	
     case KeyEvent.VK_1:
+    	axe_act = true;
+    	sound.play("sound/axe.wav");
+//    	while (i <= 10) i ++; //vorläufig
+//    	axe_act = false; //vorläufig
+    	break;
+    	
+    case KeyEvent.VK_2:
+    	sword_act = true;
+    	sound.play("sound/sword.wav");
+//    	while (i <= 10) i ++; //vorläufig
+//    	sword_act = false; //vorläufig
+    	break;
+    	
+    case KeyEvent.VK_3:
+    	spear_act = true;
+    	sound.play("sound/spear.wav");
+//    	while (i <= 10) i ++; //vorläufig
+//    	spear_act = false; //vorläufig 
     	break;
     }
 	
