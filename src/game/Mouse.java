@@ -7,7 +7,7 @@ public class Mouse implements MouseListener {
 	
 	//Mausposition wird abgefragt
 	/*
-	   * @author Martha Tatusch and Maike Fox
+	   * @author Martha Tatusch and Maike Fox and Brigitta Wanner
 	   */
 	@Override
 	public void mouseClicked(MouseEvent m) {
@@ -53,7 +53,19 @@ public class Mouse implements MouseListener {
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
-		else if ((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550) && Main.inMenue) System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
+		
+		else if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550)){
+			
+			Networklobby lobby = new Networklobby();
+			lobby.initLobby();
+			Main.inMenue = false;
+		}
+		
+		else if ((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550) && Main.inMenue){
+			
+			System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
+		
+		}
 		
 	}
 

@@ -91,6 +91,8 @@ public void update() {
 		if(life <= 0){
 			Main.boss.getShoot().clear(); //lösche Schüsse aus Arraylist
 			Main.boss.setLife(100); //setze Leben des Bossgegners = 100
+			Death();
+			Main.player.total_life -= 1;
 			Main.room = Tiles.lastRoomCheck;
 			
 //			if(Main.room == 1){	

@@ -15,6 +15,7 @@ public class Menue {
 	private BufferedImage bg;
 	private BufferedImage bt1;
 	private BufferedImage bt2;
+	private BufferedImage bt3;
 	
 	public Menue(){
 		
@@ -37,6 +38,12 @@ public class Menue {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			bt3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Multiplayer.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//Bilder werden gezeichnet:
@@ -46,6 +53,7 @@ public class Menue {
 		g.drawImage(bg, 0, 0, null);
 		g.drawImage(bt1, 150, 200, null);
 		g.drawImage(bt2, 150, 400, null);
+		g.drawImage(bt3, 150, 600, null);
 		
 	}
 
