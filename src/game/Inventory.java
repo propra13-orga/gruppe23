@@ -21,7 +21,8 @@ public class Inventory extends JFrame implements ActionListener
 	public final static int MAX_INVENTORYSIZE = 10;
 	public JLabel ItemPrice, ItemDamage, ItemDefense, ItemHeal, ItemMana, Equipped;
 	public int item_price, item_damage, item_defense, item_heal, item_mana, value_i;
-	public static int player_money = 10;
+	public static int player_money = 0;
+	public static int player_exp = 0;
 	public int equip = -1;
     static ArrayList<Item> inventory = new ArrayList<Item>();
     Vector inventory_vec = new Vector();
@@ -142,6 +143,7 @@ public class Inventory extends JFrame implements ActionListener
     	
     	JFrame inv_frame = new JFrame ();
     	JLabel MoneyLabel = new JLabel("Money: " + player_money + " $");
+    	JLabel ExperienceLabel = new JLabel ("Experience:" + player_exp);
     	inv_frame.setLayout(new FlowLayout());
  		inv_frame.setVisible(true);
  		inv_frame.setSize(310,120);
@@ -163,6 +165,7 @@ public class Inventory extends JFrame implements ActionListener
  		inv_frame.add(ItemHeal);
  		inv_frame.add(ItemMana);
  		inv_frame.add(Equipped);
+ 		inv_frame.add(ExperienceLabel);
  		inv_frame.setLocation(200, 350);
 
  		Equipped.setVisible(false);

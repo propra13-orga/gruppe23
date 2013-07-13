@@ -1,21 +1,21 @@
-! # = Wand , leer = Boden, F = Falle, E = Eingang, A = Ausgang, * = Gegnerpfad, N = NCP, C = Checkpoint, S = Shop, 
+! # = Wand , leer = Boden, F = Falle, E = Eingang, A = Ausgang, * = Gegnerpfad, N = NCP, C = Checkpoint, S = Shop, Q = Quest ,  X = Quest_Exit , W = Quest_Wall , Z = Quest_Wall2 , D = Quest_Wall3 
 !-------MAP---------!
 ++++++++++++++++++++
 +##################+
 +#E    F     #    #+
-+#N#           #  #+
-+# ################+
-+# #              #+
-+# #  ##########  #+
++#N#       Q   #  #+
++#W################+
++#                #+
++# #WW##########  #+
 +# #  #      A #  #+
 +# #F #    F   #  #+
 +# #  #        #  #+
-+# #  ####  ####  #+
-+# #              #+
++# #  ####WW####  #+
++# #        Q     #+
 +# # ##############+
 +# # C            #+
-+# ############## #+
-+#                #+
++# ##############W#+
++#          Q     #+
 +##################+
 ++++++++++++++++++++
 ++++++++++++++++++++

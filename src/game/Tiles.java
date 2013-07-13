@@ -13,15 +13,15 @@ public class Tiles {
     private int tileX, tileY, speedX, speedY;
     private String type;
     public Image tileImage;
-    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S";
-    public static Rectangle r, t, e, n, c, s;
+    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S", quest = "Q" , quest_wall = "W", quest_exit = "X", quest_wall2 = "Z" , quest_wall3 = "D";
+    public static Rectangle r, t, e, n, c, s,q , W , Z, D;
     public static int[][] e_walk = new int[19][19];
     private int e_walk_x = 0, e_walk_y = 0;
     public static boolean finished = false;
     public static int checkX, checkY, lastRoomCheck, entryX, entryY;  
     public static int a;
     public static int b;
-    public static int q,w;
+    public static int v,w;
     public static int counterShop = 1000;
 	private boolean shop_reached = false;
     
@@ -39,6 +39,10 @@ public class Tiles {
         n = new Rectangle ();
         c = new Rectangle ();
         s = new Rectangle ();
+        q = new Rectangle ();
+        W = new Rectangle ();
+        Z = new Rectangle();
+        D = new Rectangle();
         	
         type = typeInt;
         
@@ -84,7 +88,7 @@ public class Tiles {
         	//entryY = tileY;
         	Main.player.setP_X(x*40+4);
         	Main.player.setP_Y(y*40+4);
-        	q = Main.player.getP_X();
+        	v = Main.player.getP_X();
         	w = Main.player.getP_Y();
         	Main.enemy.setX(40+(int)(Math.random()*729)); //zufällige Platzierung des Gegners bei Wechsel des Raumes
         	Main.enemy.setY(40+(int)(Math.random()*601));
@@ -101,8 +105,6 @@ public class Tiles {
         else if (type.equals(wall3)) {
         	tileImage = Main.tilewall3;
         }
-        
-        
         else if (type.equals(ncp)) {  // Bild für Ncp eingefügt
         	tileImage = Main.ncp1;
         	
@@ -112,6 +114,21 @@ public class Tiles {
         }
         else if (type.equals(checkpoint)){  //Bild für Checkpoint eingefügt
         	tileImage = Main.checkpoint;
+        }
+        else if (type.equals(quest)){
+        	tileImage = Main.quest;
+        }
+        else if (type.equals(quest_exit)){
+        	tileImage = Main.Ausgang;
+        }
+        else if (type.equals(quest_wall)){
+        	tileImage = Main.Wand;
+        }
+        else if (type.equals(quest_wall2)){
+        	tileImage = Main.Wand2;
+        }
+        else if (type.equals(quest_wall3)){
+        	tileImage = Main.Wand3;
         }
       
       if(x == 19 && y == 19){    	  
@@ -202,6 +219,53 @@ public class Tiles {
    		 	System.out.println("true");
    		 	Save.save();}}
     
+    /*
+     * @author Maike Fox
+     */
+    public void checkquest (Rectangle rect) {
+    	if (rect.intersects(q)) {
+    		setType(floor3);
+    		tileImage = Main.tilefloor;
+    	
+    		Inventory.player_exp = Inventory.player_exp + 10;
+    		Inventory.player_money = Inventory.player_money +5;
+    		}
+ 
+    }
+    /*
+     * @author Maike Fox
+     */
+   public void checkwall (Rectangle rect) {
+	   if (rect.intersects(W)) {
+		   setType(floor3);
+		   tileImage = Main.tilefloor;
+		   
+	   }
+   }
+   /*
+    * @author Maike Fox
+    */
+   public void checkwall2 (Rectangle rect) {
+	   if (rect.intersects(Z)) {
+		   setType(floor3);
+		   tileImage = Main.tilefloor;
+		   
+	   }
+   }
+   /*
+    * @author Maike Fox
+    */
+   public void checkwall3 (Rectangle rect) {
+	   if (rect.intersects(D)) {
+		   setType(floor3);
+		   tileImage = Main.tilefloor;
+		   
+	   }
+   }
+    	
+   /*
+    * @author Brigitta Wanner
+    */
     public void checkShop(Rectangle rect) {
     	if (rect.intersects(s)) 
     	{
@@ -210,7 +274,9 @@ public class Tiles {
     		
     	}
 	}
-    
+    /*
+     * @author Brigitta Wanner
+     */
     public void shop (Rectangle rect){
     if (rect.intersects(s) && counterShop == 1000) {
     	Shop shop1 = new Shop();
@@ -373,6 +439,10 @@ public class Tiles {
         n.setBounds(tileX+19, tileY+19, 2, 2);
         c.setBounds(tileX+19, tileY+19, 2, 2);	//Update für NCP und Checkpoint hinzugefügt
         s.setBounds(tileX+19, tileY+19, 2, 2);
+        q.setBounds(tileX+19, tileY+19, 2, 2);
+        W.setBounds(tileX+19, tileY+19, 2, 2);
+        Z.setBounds(tileX+19, tileY+19, 2, 2);
+        D.setBounds(tileX+19, tileY+19, 2, 2);
         
         
         if (type.equals(wall)){
@@ -408,6 +478,18 @@ public class Tiles {
         
         if (type.equals(ncp)){  //Update für NCP
         	checkNcp(Player.r);
+        }
+        if (type.equals(quest)){
+        	checkquest(Player.r);
+        }	
+        if (type.equals(quest_wall)){
+        	checkwall(Player.r);
+        }
+        if (type.equals(quest_wall2)){
+        	checkwall(Player.r);
+        }
+        if (type.equals(quest_wall3)){
+        	checkwall(Player.r);
         }
     	if (type.equals(checkpoint)){ //Update für Checkpoint
     		try {

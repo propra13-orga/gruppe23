@@ -53,7 +53,7 @@ public class Player {
     	if (total_life > 0) {
     		Main.inMenue = false;
     		if (Main.checkpoint_reached == false) {
-    			Main.player.setP_X(Tiles.q);
+    			Main.player.setP_X(Tiles.v);
     			Main.player.setP_Y(Tiles.w);
     			Main.player.setLife(100);}
     		else {

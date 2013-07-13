@@ -21,7 +21,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	//Spielelemente   // public static Imge ncp, ncp1,checkpoint,story hinzugefügt
 	public static Image image, character, health_empty, health_full, heart, mana_full, mana_empty,enemy_ghost, enemy_monster, lightning, boss1, boss2, boss3, ncp, lightning_claw, shop;
 	public static Image axe, sword, spear, mana_small, mana_big, health_small, health_big, all_small, all_middle;
-	public static Image tilefloor, tilewall, tiletrap, tiletrap2, tileexit, tileentry, tilewall2, tilefloor3, tilewall3, ncp1, checkpoint, story, geld;
+	public static Image tilefloor, tilewall, tiletrap, tiletrap2, tileexit, tileentry, tilewall2, tilefloor3, tilewall3, ncp1, checkpoint, story, geld,quest, Ausgang, Wand , Wand2 , Wand3;
 	public static Player player;
 	public static Enemy enemy;
 	public Animation animation;
@@ -136,6 +136,11 @@ public class Main extends Applet implements Runnable, KeyListener{
   		shop = getImage(base, "gfx/Tile_Shop.png");
   		geld = getImage(base, "gfx/geld.png");
   		heart = getImage(base, "gfx/Heart.png");
+  		quest = getImage(base, "gfx/Quest_Floor.png"); // Quests hinzugefügt
+  		Ausgang = getImage(base, "gfx/Quest_Exit.png");
+  		Wand = getImage(base, "gfx/Quest_Wall.png");
+  		Wand2 = getImage(base, "gfx/Quest_Wall2.png");
+  		Wand3 = getImage(base, "gfx/Quest_Wall3.png");
 
    }
 
@@ -144,12 +149,12 @@ public class Main extends Applet implements Runnable, KeyListener{
    */
    public void itemInit()
    {
-	   Weapon Axe = new Weapon("Axt",5, 2, 10);
-	   Weapon Sword = new Weapon("Sword",4, 3, 10);
-	   Potion Mana_Small = new Potion("Small Manapotion",5, 2, 10);
-	   Potion Mana_Big = new Potion("Big Manapotion",5, 2, 10);
-	   Potion Health_Small = new Potion("Small Healthpotion",5, 2, 10);
-	   Potion Health_Big = new Potion("Big Healthpotion",5, 2, 10);
+	   Weapon Axe = new Weapon("Axt",10, 5, 20);
+	   Weapon Sword = new Weapon("Sword",5, 3, 10);
+	   Potion Mana_Small = new Potion("Small Manapotion",0, 10, 10);
+	   Potion Mana_Big = new Potion("Big Manapotion",0, 20, 20);
+	   Potion Health_Small = new Potion("Small Healthpotion",10, 0, 10);
+	   Potion Health_Big = new Potion("Big Healthpotion",20, 0, 20);
 	   
 	   itemlist.add(0,Axe);
 	   itemlist.add(1,Sword);

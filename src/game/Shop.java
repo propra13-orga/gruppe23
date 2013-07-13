@@ -59,6 +59,7 @@ public class Shop extends JFrame implements ActionListener
 	JButton Buy_it = new JButton("Buy Item");
 	JButton Sell_it = new JButton("Sell Item");
 	JLabel PlayerMoney = new JLabel("Money: " + player_money + " $");
+	
 	JLabel NotEnoughMoney = new JLabel("You need more Money to buy this.");
 	JLabel InventoryFull = new JLabel("You can't buy this. Your inventory is full.");
 	JLabel InventoryEmpty = new JLabel("Your inventory is empty.");
