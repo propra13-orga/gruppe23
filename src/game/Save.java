@@ -1,3 +1,5 @@
+//author: Martha Tatusch
+
 package game;
 
 import java.io.BufferedReader;
@@ -6,11 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-
-
-
-
 
 
 public class Save {
@@ -74,8 +71,9 @@ public class Save {
         Player.life = Integer.parseInt(attributes.get(1));
         Player.mana = Integer.parseInt(attributes.get(2));
         Main.room =Integer.parseInt(attributes.get(3));
-        Player.lastCheckpointX = Integer.parseInt(attributes.get(4));
-        Player.lastCheckpointY = Integer.parseInt(attributes.get(5));
+        Main.player.setP_X(Integer.parseInt(attributes.get(4)));
+        Main.player.setP_Y(Integer.parseInt(attributes.get(5)));
+        System.out.println(Integer.parseInt(attributes.get(5)));
 	}
 
 }

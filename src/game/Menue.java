@@ -16,6 +16,8 @@ public class Menue {
 	private BufferedImage bt1;
 	private BufferedImage bt2;
 	private BufferedImage bt3;
+	private BufferedImage bt4;
+
 	
 	public Menue(){
 		
@@ -44,6 +46,11 @@ public class Menue {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			bt4 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/fortfahren.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//Bilder werden gezeichnet:
@@ -51,9 +58,10 @@ public class Menue {
 	public void draw(Graphics g){
 		
 		g.drawImage(bg, 0, 0, null);
-		g.drawImage(bt1, 150, 200, null);
-		g.drawImage(bt2, 150, 400, null);
-		g.drawImage(bt3, 150, 600, null);
+		g.drawImage(bt1, 200, 150, null);
+		g.drawImage(bt2, 200, 540, null);
+		g.drawImage(bt3, 200, 410, null);
+		g.drawImage(bt4, 200, 280, null);
 		
 	}
 

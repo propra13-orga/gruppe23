@@ -198,9 +198,9 @@ public class Tiles {
    	 if (rect.intersects(c)  ) {
    		 	Player.lastCheckpointX = a;
    		 	Player.lastCheckpointY = b;
-   		 	Main.checkpoint_reached = true;}}
-//   		 	System.out.println("true");
-//   		 	Save.save();}}
+   		 	Main.checkpoint_reached = true;
+   		 	System.out.println("true");
+   		 	Save.save();}}
     
     public void checkShop(Rectangle rect) {
     	if (rect.intersects(s)) 
@@ -246,6 +246,7 @@ public class Tiles {
     public void checkExit(Rectangle rect){
         if(rect.intersects(e)){
         	Main.checkpoint_reached = false;
+        	Main.sound.play("sound/newroom.wav");
         	switch(Main.room){
         	case 1:       		
         		try {
@@ -338,6 +339,7 @@ public class Tiles {
      */
 	public static void story () {
 		Main.ccheckpoint = false;
+		Main.sound.play("sound/npc.wav");
 		if (Main.level == 1){
 		
 		JOptionPane.showMessageDialog(null,

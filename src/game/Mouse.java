@@ -11,7 +11,7 @@ public class Mouse implements MouseListener {
 	   */
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 200) && (m.getY() < 350) && Main.inMenue){
+		if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 150) && (m.getY() < 250) && Main.inMenue){
 			Main.player.setP_X(84);
 			Main.player.setP_Y(84);
 			Main.player.setLife(100);
@@ -20,19 +20,14 @@ public class Mouse implements MouseListener {
 			Main.checkpoint_reached=false;
 			Main.room = 1;
 			Main.level = 1;
-			Main.lastMusic = 32000;
+			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 32000;
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
 		
-		else if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 0) && (m.getY() < 150) && Main.inMenue){
-//			Main.player.setP_X(84);
-//			Main.player.setP_Y(84);
-//			Main.player.setLife(Integer.parseInt((String) Save.attributes.get(1)));
-//			Main.player.settotal_life(Integer.parseInt((String) Save.attributes.get(0)));
-//			Main.player.setMana(Integer.parseInt((String) Save.attributes.get(2)));
-			Main.checkpoint_reached=false;
-			Main.lastMusic = 32000;
+		else if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 280) && (m.getY() < 380) && Main.inMenue){
+			
+			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 32000;
 			
 			try {
 				Save.load();
@@ -49,19 +44,27 @@ public class Mouse implements MouseListener {
 		       {
 		           e.printStackTrace(); 
 		       }
+		       
+		       	try {
+					Save.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
 		
-		else if((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550)){
+		else if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 410) && (m.getY() < 510)){
 			
 			Networklobby lobby = new Networklobby();
 			lobby.initLobby();
 			Main.inMenue = false;
 		}
 		
-		else if ((m.getX() > 150) && (m.getX() < 650) && (m.getY() > 400) && (m.getY() < 550) && Main.inMenue){
+		else if ((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 540) && (m.getY() < 640) && Main.inMenue){
 			
 			System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
 		

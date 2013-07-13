@@ -1,11 +1,11 @@
 !Total_Life
-2
+3
 !Life
-80
+100
 !Mana
-40
+100
 !Raum
-2
+1
 !CheckpointX
 84
 !CheckpointY

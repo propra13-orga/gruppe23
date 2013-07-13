@@ -33,7 +33,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public Menue menu;
 	public static Boss boss;
 	public static Frame fenster;
-	public static long lastMusic = System.currentTimeMillis(), soundInterval = 31767;
+	public static long lastMusic = -31767, soundInterval = 31767;
 
 	//private int damage;
 	//public static Item item;
@@ -424,6 +424,7 @@ public void keyPressed(KeyEvent e) {
     		animation.setLastCast(System.currentTimeMillis());
     		animation.setLastFrame(System.currentTimeMillis());
     		spell_iceshield = true;
+    		sound.play("sound/iceshield.wav");
     	}
         break;
  
