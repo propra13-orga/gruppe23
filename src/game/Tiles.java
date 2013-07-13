@@ -409,12 +409,12 @@ public class Tiles {
 		if (Main.level == 1){
 		
 		JOptionPane.showMessageDialog(null,
-				"Dies ist die erste Hürde, die unser Rotkäppchen meistern muss. Finde den Ausweg, aber Vorsicht, es Spuckt! Nutze Waffen,Zauber und Schutzschilde um dich zu verteidigen.", "Story",
+				"Dies ist die erste Hürde, die unser Rotkäppchen meistern muss. Außerdem Spuckt es! Finde alle 3 Beeren pro Raum, um Erfahrungspunkte in Geld zu wandeln und somit immer bessere Waffen zu bekommen. Das Inventory kannst du mit der I-Taste aufrufen, den Shop mit der E-Taste.", "Story",
 				JOptionPane.OK_CANCEL_OPTION);}
 		
 		else if (Main.level == 2){
 			JOptionPane.showMessageDialog(null,
-					"Weiter gehts.", "Story",
+					"Auch hier geht die Suche nach den Beeren für Großmutters Wein weiter.Finde den Ausweg, aber Vorsicht: nicht alle Wänden sind das, was sie scheinen zu sein!", "Story",
 					JOptionPane.OK_CANCEL_OPTION);}
 		
 		else {
