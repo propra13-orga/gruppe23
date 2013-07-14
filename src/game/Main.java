@@ -70,22 +70,6 @@ public class Main extends Applet implements Runnable, KeyListener{
 	      addMouseListener(new Mouse());
 	      fenster = (Frame) this.getParent().getParent(); 
 	      fenster.setTitle("Rotkäppchen 2.0"); //Fenster-Titel
-	     
-//	      TimerTask action = new TimerTask() { //Timertask, der den Sound abspielt
-//	    	  	            public void run() {
-//	    
-//	    	  	            	sound.play("sound/bg_music.wav");
-//	    	  	            	
-//	    	             }
-//	    	  	            
-//	     
-//	    	  	 
-//	    	  	        };
-//	    	  	        
-//	    	  	        
-//	    	  	 
-//	    	  	        Timer caretaker = new Timer(); //neuen Timer erstellen
-//	    	  	        caretaker.schedule(action, 0, 31767); //Timertask alle 31,767 Sekunden ausführen
 	      
 	  	try 
 	  	{
@@ -258,7 +242,12 @@ public class Main extends Applet implements Runnable, KeyListener{
     	  if(lightningclaw == true) claw.play();
        	  if(spell_iceshield == true) animation.play();
     	 
-    	  player.update(); //Spieler wird aktualisiert
+    	  try {
+			player.update();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} //Spieler wird aktualisiert
     		if(room != 9 && lightningclaw == false){
   		  enemy.update();  //gegner wird aktualisiert   		  
     		}
@@ -392,7 +381,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	}
 	
 	/*
-	 * @author ...,Maike Fox and Brigitta Wanner
+	 * @author Martha Tatusch,Maike Fox and Brigitta Wanner
 	 */
 	
 	//Steuerung:		
@@ -454,22 +443,16 @@ public void keyPressed(KeyEvent e) {
     case KeyEvent.VK_1:
     	axe_act = true;
     	sound.play("sound/axe.wav");
-//    	while (i <= 10) i ++; //vorläufig
-//    	axe_act = false; //vorläufig
     	break;
     	
     case KeyEvent.VK_2:
     	sword_act = true;
     	sound.play("sound/sword.wav");
-//    	while (i <= 10) i ++; //vorläufig
-//    	sword_act = false; //vorläufig
     	break;
     	
     case KeyEvent.VK_3:
     	spear_act = true;
     	sound.play("sound/spear.wav");
-//    	while (i <= 10) i ++; //vorläufig
-//    	spear_act = false; //vorläufig 
     	break;
     }
 	
@@ -477,7 +460,7 @@ public void keyPressed(KeyEvent e) {
 
 
 /*
- * @author ...,Maike Fox and Brigitta Wanner
+ * @author Martha Tatusch,Maike Fox and Brigitta Wanner
  */
 
 

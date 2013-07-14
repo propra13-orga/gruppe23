@@ -1,3 +1,5 @@
+//Author: Brigitta Wanner
+
 package game;
 
 import java.awt.*;

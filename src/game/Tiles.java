@@ -288,7 +288,7 @@ public class Tiles {
     /*
      * @author Martha Tatusch und Maike Fox
      */
-    public void checkTrap(Rectangle rect){ // Wenn in eine Falle gelaufen : total_life-1
+    public void checkTrap(Rectangle rect) throws IOException{ // Wenn in eine Falle gelaufen : total_life-1
         if(rect.intersects(t)){
         	Main.player.total_life = Main.player.total_life-1;
         	Main.sound.play("sound/trap.wav");
@@ -299,7 +299,7 @@ public class Tiles {
     /*
      * @author Maike Fox
      */
-    public void trapped (Rectangle rect){		//Aufruf von Death()
+    public void trapped (Rectangle rect) throws IOException{		//Aufruf von Death()
     	if (rect.intersects(t) ) {
     		Main.player.Death();}
     			
@@ -423,11 +423,6 @@ public class Tiles {
 				JOptionPane.OK_CANCEL_OPTION); }
 }
 	
-    
-    
-
-
-	
 	 /*
      * @author Martha Tatusch, Maike Fox
      */
@@ -461,11 +456,21 @@ public class Tiles {
         }
         
         if (type.equals(trap)){
-            checkTrap(Player.r);	
+            try {
+				checkTrap(Player.r);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
         }
         
         if (type.equals(trap2)){
-        	checkTrap(Player.r);
+        	try {
+				checkTrap(Player.r);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
         
         if (type.equals(exit)){

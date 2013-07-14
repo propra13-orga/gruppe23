@@ -1,3 +1,5 @@
+//Author: Martha Tatusch
+
 package game;
 
 public class Claw {

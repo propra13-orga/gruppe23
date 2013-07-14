@@ -75,5 +75,13 @@ public class Save {
         Main.player.setP_Y(Integer.parseInt(attributes.get(5)));
         System.out.println(Integer.parseInt(attributes.get(5)));
 	}
-
+	
+	public static void reset () throws IOException{
+		
+		File savegame = new File("maps/save.txt");
+		FileWriter saveWrite = new FileWriter(savegame);
+		saveWrite.write("3\n100\n100\n1\n84\n84");
+		saveWrite.flush();
+		
+}
 }

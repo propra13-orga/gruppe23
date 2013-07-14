@@ -20,14 +20,14 @@ public class Mouse implements MouseListener {
 			Main.checkpoint_reached=false;
 			Main.room = 1;
 			Main.level = 1;
-			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 32000;
+			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 31767;
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
 		
 		else if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 280) && (m.getY() < 380) && Main.inMenue){
 			
-			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 32000;
+			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 31767;
 			
 			try {
 				Save.load();
