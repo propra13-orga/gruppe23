@@ -1,4 +1,6 @@
-//Author: Brigitta Wanner
+/*
+* author Brigitta Wanner
+*/
 
 package game;
 
@@ -8,108 +10,128 @@ import javax.swing.*;
 
 public class Networklobby extends JFrame implements ActionListener
 {
-	JButton SendButton, StartButton, SettingsButton, SaveSettings;
-	JTextField edit_field = new JTextField();
-	JTextField nickname_field = new JTextField();
-	JTextArea show_area = new JTextArea();
-	JTextArea show_parties = new JTextArea();
-	public String user_name = "unnamend";
-	JFrame settings_frame = new JFrame();
+	//Instanzvariablen
+	Client client;
+	Server server;
+	JButton SearchButton = new JButton();
+	JButton StartLobby = new JButton();
+	static Worker clientworker, serverworker;
 
 	
-	// Methode erstellt Lobby
-	public void initLobby()
+	public static Boolean inChat = true;
+	static String input;
+	private static String user_name = "unnamend";
+	static JFrame settings_frame = new JFrame();
+	JFrame start_frame = new JFrame();
+	static JFrame lobby_frame = new JFrame();
+	
+	
+	//Abfrage ob Mitspieler gesucht werden sollen oder ob selbst ein Spiel gestartet werden soll
+	public void startLobby()
 	{
-		JFrame lobby_frame = new JFrame("Multiplayer Lobby");
-		lobby_frame.setLayout(new BorderLayout(5,5));
-		lobby_frame.setSize(600,350);
-		lobby_frame.setVisible(true);
- 		
- 		// center panel
- 		edit_field = new JTextField("Write a Message");
- 		SendButton = new JButton("Send");
- 		SettingsButton = new JButton("Settings");
- 		JPanel message_panel = new JPanel();
- 		message_panel.setLayout(new BorderLayout());
- 		message_panel.add(SettingsButton, BorderLayout.LINE_START);
- 		message_panel.add(edit_field, BorderLayout.CENTER);
- 		message_panel.add(SendButton, BorderLayout.LINE_END);
- 		
- 		show_area.setEditable(false);
- 		JPanel center_panel = new JPanel();
- 		center_panel.setLayout(new BorderLayout());
- 		center_panel.add(show_area, BorderLayout.CENTER);
- 		center_panel.add(message_panel, BorderLayout.PAGE_END);
- 		
- 		// right panel
- 		show_parties = new JTextArea("User in Lobby: ");
- 		show_parties.setEditable(false);
-		StartButton = new JButton("Start Game");
-		JPanel right_panel = new JPanel();
-		right_panel.setLayout(new BorderLayout());
-		right_panel.add(show_parties, BorderLayout.CENTER);
-		right_panel.add(StartButton, BorderLayout.PAGE_END);
-		
-		
- 		lobby_frame.add(center_panel, BorderLayout.CENTER);
- 		lobby_frame.add(right_panel, BorderLayout.LINE_END);
- 		
- 		SendButton.addActionListener(this);
- 		StartButton.addActionListener(this);
- 		SettingsButton.addActionListener(this);
-		
-	}
-	// Settings
-	public void setThings()
-	{
-		settings_frame.setLayout(new FlowLayout());
-		settings_frame.setSize(300,120);
-		settings_frame.setVisible(true);
-		
-		JLabel changeUsername = new JLabel("Change your Nickname:");
-		SaveSettings = new JButton("Save Settings");
-		nickname_field.setSize(50, 20);
-		nickname_field = new JTextField(user_name);
-		
-		settings_frame.add(changeUsername);
-		settings_frame.add(nickname_field);
-		settings_frame.add(SaveSettings);
-		
-		SaveSettings.addActionListener(this);
-	}
+		start_frame.setSize(300,150);
+		start_frame.setVisible(true);
+		start_frame.setLayout(new FlowLayout());
+		start_frame.setLocation(200,350);
 
+		SearchButton.setText("Search for gamelobbys");
+		StartLobby.setText("Start your own game");
+		
+		start_frame.add(SearchButton);
+		start_frame.add(StartLobby);
+		
+		SearchButton.addActionListener(this);
+		StartLobby.addActionListener(this);
+	}
+	
+	//Methode, die die GUI der Lobby erstellt
+	
 	@Override
 	public void actionPerformed(ActionEvent evt) 
 	{
 		Object src = evt.getSource();
-   	 	if(src == SendButton)
-   	 	{
-   	 		if(!edit_field.getText().trim().equals(""))
-   	 		{
-   	 			String edit_text = edit_field.getText();
-   	 			show_area.append(user_name + ": " + edit_text + "\n");
-   	 			edit_field.setText("");
-   	 		}
-   	 	}
    	 
-	 	if(src == StartButton)
+	 	if(src == StartLobby)
 	 	{
-	 		// However Multiplayer starts
-	 		Main MultiMain = new Main();
-	 		MultiMain.start();
-
-	 	}
-	 	
-	 	if(src == SettingsButton)
-	 	{
-	 		setThings();
-	 	}
-	 	
-	 	if(src == SaveSettings)
-	 	{
-	 		user_name = nickname_field.getText();
-	 		settings_frame.setVisible(false);
+	 		ServerGUI.serverLobby();
 	 		
+	 		start_frame.dispose();
+	 		this.start_frame = new JFrame();
+ 
+	 		 Thread LobbyThreadS = new Thread()
+		 		{
+		 			@Override 
+		 		    public void run () 
+		 		    {
+		 				ServerGUI.show_areaS.append("Spiel" + ": " + "Warte auf Spieler" + "\n");
+		 				
+		 		    	while(Server.connected == false)
+		 		    	{
+		 		    		try 
+		 		    		{
+		 						Thread.sleep(600);
+		 					} catch (InterruptedException iE) 
+		 					{
+		 						System.out.println(iE.getMessage());
+		 					}
+		 		    	}
+		 		    	if(Server.connected == true)
+		 		    	{
+		 		    		ServerGUI.show_areaS.append("Spiel" + ": " + "Verbindung ist hergestellt" + "\n");
+		 		    	}
+		 		    }
+		 		};LobbyThreadS.start();
+		 		
+		 		new Thread() 
+		 		{
+		 		    @Override 
+		 		    public void run () 
+		 		    {
+		 		    	new Server();
+		 		    }
+		 		}.start();
 	 	}
+ 	
+	 	if(src == SearchButton)
+	 	{
+	 		ClientGUI.clientLobby(false);
+	 		start_frame.dispose();
+	 		this.start_frame = new JFrame();
+	 		
+	 		Thread LobbyThreadC = new Thread()
+	 		{
+	 			@Override 
+	 		    public void run () 
+	 		    {
+	 				ClientGUI.show_areaC.append("Spiel" + ": " + "Suche nach Server" + "\n");
+	 				
+	 		    	while(Client.connected == false)
+	 		    	{
+	 		    		try 
+	 		    		{
+	 						Thread.sleep(600);
+	 					} catch (InterruptedException iE) 
+	 					{
+	 						System.out.println(iE.getMessage());
+	 					}
+	 		    	}
+	 		    	if(Client.connected == true)
+	 		    	{
+	 		    		ClientGUI.show_areaC.append("Spiel" + ": " + "Verbindung ist hergestellt" + "\n");
+	 		    	}
+	 		    }
+	 		}; LobbyThreadC.start();
+	 		
+	 		new Thread() 
+	 		{
+	 		    @Override 
+	 		    public void run () 
+	 		    {
+	 		    	new Client();
+	 		    }
+	 		}.start();
+	 		
+	 		
+	 	} 
 	}
 }

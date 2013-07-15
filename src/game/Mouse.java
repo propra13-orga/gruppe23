@@ -57,13 +57,16 @@ public class Mouse implements MouseListener {
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
 		
+		/*
+		 * author Brigitta Wanner
+		 */
 		else if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 410) && (m.getY() < 510)){
 			
-			Networklobby lobby = new Networklobby();
-			lobby.initLobby();
-			Main.inMenue = false;
+			Networklobby lobby = new Networklobby();	//Wenn Multiplayer gedrückt wird
+			lobby.startLobby();							//oeffnet sich das neue Fenster für das Netzwerk
 		}
 		
+		//Author: Martha Tatusch
 		else if ((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 540) && (m.getY() < 640) && Main.inMenue){
 			
 			System.exit(0); //wenn "Spiel verlassen" gedrückt wird, schließe Spiel
