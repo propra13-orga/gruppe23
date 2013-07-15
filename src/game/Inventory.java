@@ -23,8 +23,8 @@ public class Inventory extends JFrame implements ActionListener
 	public int item_price, item_damage, item_defense, item_heal, item_mana, value_i;
 	public static int player_money = 0;
 	public static int player_exp = 0;
-	public int equip = -1;
-    static ArrayList<Item> inventory = new ArrayList<Item>();
+	public static int equip = -1;
+    public static ArrayList<Item> inventory = new ArrayList<Item>();
     Vector inventory_vec = new Vector();
     DefaultComboBoxModel model = new DefaultComboBoxModel(inventory_vec);
     JComboBox choice = new JComboBox(model);

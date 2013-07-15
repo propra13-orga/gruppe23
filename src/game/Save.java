@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Save {
 	
     public static ArrayList<String> attributes = new ArrayList<String>();
+    static boolean itemsAdded = false;
 
 	public Save(){
 	
@@ -28,6 +29,15 @@ public class Save {
 		attributes.add(String.valueOf(Main.room));
 		attributes.add(String.valueOf(Main.player.lastCheckpointX));
 		attributes.add(String.valueOf(Main.player.lastCheckpointY));
+		attributes.add(String.valueOf(Inventory.player_money));
+		attributes.add(String.valueOf(Inventory.player_exp));
+		
+		for( int j = 0 ; j < Inventory.inventory.size() ; j++){ // Items ab Stelle 8
+			Item currentItem = Inventory.inventory.get(j);
+			int indexOfCurrentItem = Main.itemlist.indexOf(currentItem);
+			attributes.add(String.valueOf(indexOfCurrentItem));
+		}
+		
 		File savegame = new File("maps/save.txt");
 		FileWriter saveWrite = new FileWriter(savegame);
 		
@@ -73,7 +83,16 @@ public class Save {
         Main.room =Integer.parseInt(attributes.get(3));
         Main.player.setP_X(Integer.parseInt(attributes.get(4)));
         Main.player.setP_Y(Integer.parseInt(attributes.get(5)));
-        System.out.println(Integer.parseInt(attributes.get(5)));
+        Inventory.player_money = Integer.parseInt(attributes.get(6));
+        Inventory.player_exp = Integer.parseInt(attributes.get(7));
+        
+        if(!itemsAdded){
+        for(int i = 8 ; i < attributes.size(); i++){
+        	Item addItem = Main.itemlist.get(Integer.parseInt(attributes.get(i)));
+        	Inventory.inventory.add(addItem);
+        }
+        itemsAdded = true;
+        }
 	}
 	
 	public static void reset () throws IOException{

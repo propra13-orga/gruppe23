@@ -47,7 +47,7 @@ public class Main extends Applet implements Runnable, KeyListener{
 	public static int direction;
 	public static boolean animating = false, spell_iceshield = false, inMenue = true, lightningclaw = false;
 	public static boolean ccheckpoint = false, checkpoint_reached = false;
-	public static boolean sword_act = false, spear_act = false, axe_act = false;
+	public static boolean sword_act = false, axe_act = false;
 	public static int i = 1;
 
 
@@ -146,8 +146,8 @@ public class Main extends Applet implements Runnable, KeyListener{
 	   itemlist.add(3,Mana_Big);
 	   itemlist.add(4,Health_Small);
 	   itemlist.add(5,Health_Big);
-	   invent.inventory.add(0, Main.itemlist.get(1));
-	   invent.inventory.add(1, Main.itemlist.get(5));
+//	   invent.inventory.add(0, Main.itemlist.get(1));
+//	   invent.inventory.add(1, Main.itemlist.get(5));
 	   
    }
 /*
@@ -441,19 +441,23 @@ public void keyPressed(KeyEvent e) {
     	break;
     	
     case KeyEvent.VK_1:
+    	if (Inventory.equip == 0){
     	axe_act = true;
     	sound.play("sound/axe.wav");
+    	}
     	break;
     	
     case KeyEvent.VK_2:
+    	if(Inventory.equip == 1){
     	sword_act = true;
     	sound.play("sound/sword.wav");
+    	}
     	break;
     	
-    case KeyEvent.VK_3:
-    	spear_act = true;
-    	sound.play("sound/spear.wav");
-    	break;
+//    case KeyEvent.VK_3:
+//    	spear_act = true;
+//    	sound.play("sound/spear.wav");
+//    	break;
     }
 	
 }

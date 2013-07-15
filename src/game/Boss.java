@@ -162,9 +162,9 @@ public class Boss {
 				this.life -= 20; 
 				Main.sword_act = false;
 			}
-			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+			else if (Main.room == 9 && Main.axe_act && this.life >= 0){
 				this.life -= 15; 
-				Main.spear_act = false;
+				Main.axe_act = false;
 			}
 			
 			
@@ -182,9 +182,9 @@ public class Boss {
 				this.life -= 20; 
 				Main.sword_act = false;
 			}
-			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+			else if (Main.room == 9 && Main.axe_act && this.life >= 0){
 				this.life -= 15; 
-				Main.spear_act = false;
+				Main.axe_act = false;
 			}
 		}
 		
@@ -201,9 +201,9 @@ public class Boss {
 				this.life -= 20; 
 				Main.sword_act = false;
 			}
-			else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+			else if (Main.room == 9 && Main.axe_act && this.life >= 0){
 				this.life -= 15; 
-				Main.spear_act = false;
+				Main.axe_act = false;
 			}
 		}
 		
@@ -220,9 +220,9 @@ public class Boss {
 			this.life -= 20; 
 			Main.sword_act = false;
 		}
-		else if (Main.room == 9 && Main.spear_act && this.life >= 0){
+		else if (Main.room == 9 && Main.axe_act && this.life >= 0){
 			this.life -= 15; 
-			Main.spear_act = false;
+			Main.axe_act = false;
 		}
 		}
 	}
