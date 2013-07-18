@@ -21,6 +21,21 @@ public class Mouse implements MouseListener {
 			Main.room = 1;
 			Main.level = 1;
 			if(System.currentTimeMillis() - Main.lastMusic > 31767) Main.lastMusic = 31767;
+			try 
+		       {
+		           Main.map.loadMap("maps/map"+ Main.room + ".txt"); //Karte laden
+		       } 
+		       catch (IOException e) 
+		       {
+		           e.printStackTrace(); 
+		       }
+			
+			Main.inSingle = true;
+			Multiplayer.inMulti = false;
+			Server.inServer = false;
+			Server.inGame = false;
+			Client.inClient = false;
+			Client.inGame = false;
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
@@ -51,8 +66,12 @@ public class Mouse implements MouseListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-			
+		   	Main.inSingle = true;
+			Multiplayer.inMulti = false;
+			Server.inServer = false;
+			Server.inGame = false;
+			Client.inClient = false;
+			Client.inGame = false;
 			Main.inMenue = false; //wenn "neues Spiel" gedrückt wird, starte Spiel
 			Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
 		}
@@ -62,8 +81,9 @@ public class Mouse implements MouseListener {
 		 */
 		else if((m.getX() > 200) && (m.getX() < 600) && (m.getY() > 410) && (m.getY() < 510)){
 			
+			Main.inSingle = false;
 			Networklobby lobby = new Networklobby();	//Wenn Multiplayer gedrückt wird
-			lobby.startLobby();							//oeffnet sich das neue Fenster für das Netzwerk
+			lobby.startLobby();					//oeffnet sich das neue Fenster für das Netzwerk
 		}
 		
 		//Author: Martha Tatusch

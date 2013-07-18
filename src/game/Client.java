@@ -8,6 +8,8 @@ package game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.*;
 
@@ -16,12 +18,13 @@ public class Client
 {
 	//Instanzvariablen
 	private final int port = 4321;		// Port, der zum Verbinden geoeffnet wird
-	private final String host = "localhost"; 
+	static String host = "";
 	public static boolean connected;	// boolean, der fragt, ob der client verbunden wurde
-	public static boolean inClient = true;
+	public static boolean inClient = true, inGame = false;
 	private Socket client = new Socket();
-	private static PrintWriter socketWriter;
-	private static BufferedReader socketReader;
+	public static ObjectOutputStream socketWriter;
+	public  ObjectInputStream socketReader;
+	static Message msg;
 	
 	/*
 	 * Konstruktor
@@ -29,28 +32,36 @@ public class Client
 	 */
 	public Client() 
 	{
-		this.inClient = true;
+		inClient = true;
 		
 		try
         {
 			// eroeffnung einer neuen Verbindung 
-            client = new Socket(this.host, this.port);
-            this.socketReader = new BufferedReader(new InputStreamReader(this.client.getInputStream()));		// neuer Inputreader
-			this.socketWriter = new PrintWriter(this.client.getOutputStream());		// neuer Outputwriter
+            client = new Socket(host, this.port);
+            socketWriter = new ObjectOutputStream(client.getOutputStream());
+            socketReader  = new ObjectInputStream(client.getInputStream());
 			
 			
-			String inputLine;
-			//Solange der Klient Daten empfaengt bleibt die Verbindung offen
+            
+            ClientGUI.playercount = 2;
+            sendMessage(new Message(0,"",ClientGUI.user_name, 2));
+            ClientGUI.refreshUserNames();
+            
+			//Solange wie im Client oder im Multiplayer = true müssen Daten bearbeitet werden
 			while(true)
 			{
-				this.connected = true;
-				System.out.println(connected);
 				
-				while((inputLine = this.socketReader.readLine()) != null)
-				{
-					System.out.println("Process msg" + inputLine);
-					processMsg(inputLine = this.socketReader.readLine());
-				}
+				connected = true;
+				try
+	        	{
+	        		msg = (Message) socketReader.readObject();
+	        		
+	        		processMsg(msg);
+	        	}
+	        	catch(Exception io)
+	        	{
+	        		
+	        	}
 			}
 
         }
@@ -61,12 +72,15 @@ public class Client
         	System.out.println(ioe.getMessage());        
         } 
 		
-		// wenn der Klient keine Daten mehr empaengt, schliesst er den Socket
+		// Schließen des Sockets
 		finally
         {
             // Clean up
             try
-            {
+            {	
+            	//socketWriter.flush();
+            	//socketReader.close();
+            	//socketWriter.close();
         		client.close();	
                 System.out.println("...Stopped");
             }
@@ -78,36 +92,86 @@ public class Client
 	}
 
 
-	// Verarbeitung der Servermessages
-	private void processMsg( final String input )
-	{
-		if(ClientGUI.inClient == true)
-		{
-			System.out.println("input message: " +input);
-			Worker ClientWorker = new Worker(input);
-			ClientWorker.execute();
-		}
+	// Verarbeitung der Servermessages (Protokoll)
+	private void processMsg( Message inputmsg ) 
+	{	// Check ob man sich bereits im Spiel befindet oder ob man sich noch im Client ist
 		if(Multiplayer.inMulti == true)
 		{
-			String[] msg = input.split("\\s+");
-			
-			Multiplayer.keyCheck(msg[0], msg[1]);
+			if(inputmsg.getIndicator() == 0) 
+			{
+				Main.keyCheck(inputmsg.getMessage(), inputmsg.getType());
+			}
+		}
+		if(ClientGUI.inClient == true)
+		{
+			if(inputmsg.getIndicator() == 1) 
+			{
+				// Client ready - wird vom Server nicht verschickt
+			}
+			if(inputmsg.getIndicator() == 2) // Server hat den Usernamen gewechselt
+			{
+				String username = inputmsg.getUsername();
+				ClientGUI.serveruser_name = username;
+				ClientGUI.refreshUserNames();
+			}
+			if(inputmsg.getIndicator() == 0) // Server schickt eine normale Message
+			{
+				ClientGUI.appendInput(inputmsg);
+			}
+			if(inputmsg.getIndicator() == 3) // Server hat neuen Schwierigkeitsgrad ausgewählt
+			{
+				ClientGUI.gamedifficulty = inputmsg.getMessage();
+			}
+			if(inputmsg.getIndicator() == 4) // Server startet das Spiel
+			{
+				ClientGUI.client_frame.setVisible(false);
+				ClientGUI.inClient = false;
+				inGame = true;
+				Multiplayer.inMulti = true;
+				try 
+				{
+				if(ClientGUI.gamedifficulty.equals("easy"))
+				  {
+					  Main.map.loadMap("maps/multiplayermap.txt"); //Karte laden 
+				  }
+				  if(ClientGUI.gamedifficulty.equals("medium"))
+				  {
+					  Main.map.loadMap("maps/multiplayer2.txt"); //Karte laden 
+				  }
+				  if(ClientGUI.gamedifficulty.equals("hard"))
+				  {
+					  Main.map.loadMap("maps/multiplayer3.txt"); //Karte laden 
+				  }
+				}
+				catch(Exception io)
+				{
+					
+				}
+				Main.fenster.setTitle("Multiplayer - Run to the Exit!");
+				Main.inMenue = false; // Multiplayer startet
+			}
 		}
 	}
 	
 
 
 	// Sendet einen String 
-	public static void sendString( String message, String playername )
+	public static void sendMessage(Message chatmessage ) 
 	{
-		socketWriter.println(playername + ": " + message);
-		System.out.println("Client output" + message);
+		try
+		{
+			socketWriter.writeObject(chatmessage);
+		}
+		catch(Exception io)
+		{
+			
+		}
 	}
 	
 
-	public static void sendMessage( String message, int playerId)
+	public static void sendCommand(Message command)
 	{
-		socketWriter.println(message + " " + playerId);
+		
 	}
 	
 	

@@ -13,7 +13,7 @@ public class Tiles {
     private int tileX, tileY, speedX, speedY;
     private String type;
     public Image tileImage;
-    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S", quest = "Q" , quest_wall = "W", quest_exit = "X", quest_wall2 = "Z" , quest_wall3 = "D";
+    public String floor = " ", wall = "#" , empty = "+", trap = "F", trap2 = "T", exit = "A", entry = "E", wall2 = "<", floor3 = ".", wall3 = "-", e_floor = "*", ncp = "N", checkpoint = "C", shop = "S", quest = "Q" , quest_wall = "W", quest_exit = "X", quest_wall2 = "Z" , quest_wall3 = "D", entry2 = "P";
     public static Rectangle r, t, e, n, c, s,q , W , Z, D;
     public static int[][] e_walk = new int[19][19];
     private int e_walk_x = 0, e_walk_y = 0;
@@ -21,7 +21,7 @@ public class Tiles {
     public static int checkX, checkY, lastRoomCheck, entryX, entryY;  
     public static int a;
     public static int b;
-    public static int v,w;
+    public static int v,w, i, j;
     public static int counterShop = 1000;
 	private boolean shop_reached = false;
     
@@ -93,6 +93,18 @@ public class Tiles {
         	Main.enemy.setX(40+(int)(Math.random()*729)); //zuf�llige Platzierung des Gegners bei Wechsel des Raumes
         	Main.enemy.setY(40+(int)(Math.random()*601));
             tileImage = Main.tileentry;
+        }
+        
+        else if(type.equals(entry2))
+        {
+        	if(Multiplayer.inMulti == true)
+        	{
+        		Main.player2.setP_Y(y*40+4);
+        		Main.player2.setP_X(x*40+4);
+        		i = Main.player2.getP_X();
+        		j = Main.player2.getP_Y();
+        		tileImage = Main.tileentry;
+        	}
         }
         
         else if (type.equals(wall2)) {
@@ -186,24 +198,65 @@ public class Tiles {
     
     public void checkCollision(Rectangle up , Rectangle right, Rectangle down, Rectangle left){
         if (up.intersects(r)){
-        	Main.player.setP_Y(Main.player.getP_Y() + 1);
+        	if(Server.inGame == true)
+        	{
+        		Main.player.setP_Y(Main.player.getP_Y() + 1);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		Main.player2.setP_Y(Main.player2.getP_Y() + 1);
+        	}
+        	if(Main.inSingle == true)
+        	{
+        		Main.player.setP_Y(Main.player.getP_Y() + 1);
+        	}
         }
         
         if (right.intersects(r)){
-        	Main.player.setP_X(Main.player.getP_X() - 1);
+        	if(Server.inGame== true)
+        	{
+        		Main.player.setP_X(Main.player.getP_X() - 1);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		Main.player2.setP_X(Main.player2.getP_X() - 1);
+        	}
+        	if(Main.inSingle == true)
+        	{
+        		Main.player.setP_X(Main.player.getP_X() - 1);
+        	}
         }
         
         if (down.intersects(r)){
-        	Main.player.setP_Y(Main.player.getP_Y() - 1);
+        	if(Server.inGame == true)
+        	{
+        		Main.player.setP_Y(Main.player.getP_Y() - 1);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		Main.player2.setP_Y(Main.player2.getP_Y() - 1);
+        	}
+        	if(Main.inSingle == true)
+        	{
+        		Main.player.setP_Y(Main.player.getP_Y() - 1);
+        	}
         }
         
         if (left.intersects(r)){
-        	Main.player.setP_X(Main.player.getP_X() + 1);
+        	if(Server.inGame == true)
+        	{
+        		Main.player.setP_X(Main.player.getP_X() + 1);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		Main.player2.setP_X(Main.player2.getP_X() + 1);
+        	}
+        	if(Main.inSingle == true)
+        	{
+        		Main.player.setP_X(Main.player.getP_X() + 1);
+        	}
         }
-        
-        
-
-        }
+    }
     
     
     /*
@@ -311,84 +364,103 @@ public class Tiles {
     
     public void checkExit(Rectangle rect){
         if(rect.intersects(e)){
-        	Main.checkpoint_reached = false;
-        	Main.sound.play("sound/newroom.wav");
-        	switch(Main.room){
-        	case 1:       		
-        		try {
-        			Main.map.loadMap("maps/map2.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.room = 2;
-        		break;
-        		
-        	case 2:
-        		try {
-        			Main.map.loadMap("maps/map3.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.boss.setX(Boss.x_follow[0]);
-        		Main.boss.setY(Boss.y_follow[0]);
-        		Main.room = 3;
-        		break;
-        	        		
-        	case 4:        		
-        		try {
-        			Main.map.loadMap("maps/map5.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.room = 5;
-        		Main.boss.setLife(100);
-        		break;
-        		
-        	case 5:        		
-        		try {
-        			Main.map.loadMap("maps/map6.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.boss.setX(Boss.x_follow[0]);
-        		Main.boss.setY(Boss.y_follow[0]);
-        		Main.room = 6;
-        		break;
-        		       	
-        		
-        	case 7:        		
-        		try {
-        			Main.map.loadMap("maps/map8.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.room = 8;
-        		Main.boss.setLife(100);
-        		break;
-        		
-        	case 8:        		
-        		try {
-        			Main.map.loadMap("maps/map9.txt");
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        		Main.boss.setX(Boss.x_follow[0]);
-        		Main.boss.setY(Boss.y_follow[0]);
-        		Main.room = 9;
-          		break;
-        		
-        				}
-        	
-        	Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
-        	      	
-        	
-        }
+        	if(Main.inSingle == true){
+            	Main.checkpoint_reached = false;
+            	Main.sound.play("sound/newroom.wav");
+            	switch(Main.room){
+            	case 1:       		
+            		try {
+            			Main.map.loadMap("maps/map2.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.room = 2;
+            		break;
+            		
+            	case 2:
+            		try {
+            			Main.map.loadMap("maps/map3.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.boss.setX(Boss.x_follow[0]);
+            		Main.boss.setY(Boss.y_follow[0]);
+            		Main.room = 3;
+            		break;
+            	        		
+            	case 4:        		
+            		try {
+            			Main.map.loadMap("maps/map5.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.room = 5;
+            		Main.boss.setLife(100);
+            		break;
+            		
+            	case 5:        		
+            		try {
+            			Main.map.loadMap("maps/map6.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.boss.setX(Boss.x_follow[0]);
+            		Main.boss.setY(Boss.y_follow[0]);
+            		Main.room = 6;
+            		break;
+            		       	
+            		
+            	case 7:        		
+            		try {
+            			Main.map.loadMap("maps/map8.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.room = 8;
+            		Main.boss.setLife(100);
+            		break;
+            		
+            	case 8:        		
+            		try {
+            			Main.map.loadMap("maps/map9.txt");
+            		} catch (IOException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		Main.boss.setX(Boss.x_follow[0]);
+            		Main.boss.setY(Boss.y_follow[0]);
+            		Main.room = 9;
+              		break;
+            		
+            				}
+            	
+            	Main.fenster.setTitle("Rotkäppchen 2.0 - Level " + String.valueOf(Main.level));
+            	}
+            	if(Multiplayer.inMulti == true)
+            	{
+            		if(Server.inGame == true)
+            		{
+            			Server.inGame = false;
+            			ServerGUI.server_frame.setVisible(true);
+            			ServerGUI.inServer = true;
+            			Multiplayer.playerWon("Server");
+            		}
+            		if(Client.inGame == true)
+            		{
+            			Client.inGame = false;
+            			ClientGUI.client_frame.setVisible(true);
+            			ClientGUI.inClient = true;
+            			Multiplayer.playerWon("Client");
+            		}
+            		
+            	}
+            	
+            }
     }
     
     /*
@@ -441,18 +513,57 @@ public class Tiles {
         
         
         if (type.equals(wall)){
-        	r.setBounds(tileX, tileY, 40, 40);
-            checkCollision(Player.up, Player.right , Player.down , Player.left);         
+        	if(Main.inSingle == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Server.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(SecondPlayer.up, SecondPlayer.right , SecondPlayer.down , SecondPlayer.left);
+        	}
         }
         
         if (type.equals(wall2)){
-        	r.setBounds(tileX, tileY, 40, 40);
-            checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	if(Main.inSingle == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Server.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(SecondPlayer.up, SecondPlayer.right , SecondPlayer.down , SecondPlayer.left);
+        	}
         }
         
         if (type.equals(wall3)){
-        	r.setBounds(tileX, tileY, 40, 40);
-            checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	if(Main.inSingle == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Server.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(Player.up, Player.right , Player.down , Player.left);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		r.setBounds(tileX, tileY, 40, 40);
+        		checkCollision(SecondPlayer.up, SecondPlayer.right , SecondPlayer.down , SecondPlayer.left);
+        	}
         }
         
         if (type.equals(trap)){
@@ -473,8 +584,20 @@ public class Tiles {
 			}
         }
         
-        if (type.equals(exit)){
-            checkExit(Player.r);	
+        if (type.equals(exit))
+        {
+        	if(Main.inSingle == true)
+        	{
+        		checkExit(Player.r);
+        	}
+        	if(Server.inGame == true)
+        	{
+        		checkExit(Player.r);
+        	}
+        	if(Client.inGame == true)
+        	{
+        		checkExit(SecondPlayer.r);
+        	}
         }
         if (type.equals(shop)){ //Update fuer shop
         	checkShop(Player.r);

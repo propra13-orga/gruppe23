@@ -15,10 +15,9 @@ public class Networklobby extends JFrame implements ActionListener
 	Server server;
 	JButton SearchButton = new JButton();
 	JButton StartLobby = new JButton();
-	static Worker clientworker, serverworker;
+	
 
 	
-	public static Boolean inChat = true;
 	static String input;
 	private static String user_name = "unnamend";
 	static JFrame settings_frame = new JFrame();
@@ -94,44 +93,9 @@ public class Networklobby extends JFrame implements ActionListener
  	
 	 	if(src == SearchButton)
 	 	{
-	 		ClientGUI.clientLobby(false);
+	 		ClientGUI.setPort();
 	 		start_frame.dispose();
 	 		this.start_frame = new JFrame();
-	 		
-	 		Thread LobbyThreadC = new Thread()
-	 		{
-	 			@Override 
-	 		    public void run () 
-	 		    {
-	 				ClientGUI.show_areaC.append("Spiel" + ": " + "Suche nach Server" + "\n");
-	 				
-	 		    	while(Client.connected == false)
-	 		    	{
-	 		    		try 
-	 		    		{
-	 						Thread.sleep(600);
-	 					} catch (InterruptedException iE) 
-	 					{
-	 						System.out.println(iE.getMessage());
-	 					}
-	 		    	}
-	 		    	if(Client.connected == true)
-	 		    	{
-	 		    		ClientGUI.show_areaC.append("Spiel" + ": " + "Verbindung ist hergestellt" + "\n");
-	 		    	}
-	 		    }
-	 		}; LobbyThreadC.start();
-	 		
-	 		new Thread() 
-	 		{
-	 		    @Override 
-	 		    public void run () 
-	 		    {
-	 		    	new Client();
-	 		    }
-	 		}.start();
-	 		
-	 		
 	 	} 
 	}
 }
