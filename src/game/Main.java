@@ -563,28 +563,22 @@ public class Main extends Applet implements Runnable, KeyListener{
 	    case KeyEvent.VK_1:
 	    	if(inSingle == true)
 	    	{
+		if(Inventory.equip == 0){
 	    	axe_act = true;
 	    	sound.play("sound/axe.wav");
-//	    	while (i <= 10) i ++; //vorläufig
-//	    	axe_act = false; //vorläufig
 	    	}
+	}
 	    	break;
 	    	
 	    case KeyEvent.VK_2:
 	    	if(inSingle == true)
 	    	{
+		if(Inventory.equip == 1){
 	    	sword_act = true;
 	    	sound.play("sound/sword.wav");
-//	    	while (i <= 10) i ++; //vorläufig
-//	    	sword_act = false; //vorläufig
 	    	}
+	}
 	    	break;
- 	
-//    case KeyEvent.VK_3:
-//
-//    	spear_act = true;
-//    	sound.play("sound/spear.wav");
-//    	break;
     }
 	
 }
